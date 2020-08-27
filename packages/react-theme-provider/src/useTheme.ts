@@ -17,6 +17,6 @@ function useCompatTheme(): ITheme | undefined {
 export const useTheme = (): Theme => {
   const theme = useContext(ThemeContext);
   const legacyTheme = useCompatTheme();
-
+  console.log(theme);
   return theme || legacyTheme || createTheme({});
 };
