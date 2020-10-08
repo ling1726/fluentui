@@ -1,7 +1,7 @@
 /**
  * @deprecated Const enum use is deprecated. See GitHub issue #7110: https://github.com/microsoft/fluentui/issues/7110
  */
-export const enum IconNames {
+export enum IconNames {
   PageLink = 'PageLink',
   CommentSolid = 'CommentSolid',
   ChangeEntitlements = 'ChangeEntitlements',

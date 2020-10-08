@@ -3,6 +3,7 @@ import { useImmerReducer, Reducer } from 'use-immer';
 import { Text, Button, Divider } from '@fluentui/react-northstar';
 import { FilesCodeIcon, AcceptIcon } from '@fluentui/react-icons-northstar';
 import { EventListener } from '@fluentui/react-component-event-listener';
+import { DefaultButton as FabricButton } from '@fluentui/react';
 import { renderElementToJSX, CodeSandboxExporter, CodeSandboxState } from '@fluentui/docs-components';
 
 import { componentInfoContext } from '../componentInfo/componentInfoContext';
@@ -724,13 +725,16 @@ export const Designer: React.FunctionComponent = () => {
                       const codeSandboxIcon = state === CodeSandboxState.Default ? <FilesCodeIcon /> : <AcceptIcon />;
 
                       return (
-                        <Button
-                          loading={state === CodeSandboxState.Loading}
-                          styles={{ marginTop: 'auto', marginLeft: '0.7rem' }}
-                          onClick={onCodeSandboxClick}
-                          icon={codeSandboxIcon}
-                          content={codeSandboxContent}
-                        />
+                        <>
+                          <FabricButton text="Standard" onClick={() => {}} allowDisabledFocus />
+                          <Button
+                            loading={state === CodeSandboxState.Loading}
+                            styles={{ marginTop: 'auto', marginLeft: '0.7rem' }}
+                            onClick={onCodeSandboxClick}
+                            icon={codeSandboxIcon}
+                            content={codeSandboxContent}
+                          />
+                        </>
                       );
                     }}
                   </CodeSandboxExporter>

@@ -7,7 +7,7 @@
 import { IIconOptions } from '@uifabric/styling';
 
 // @public @deprecated (undocumented)
-export const enum IconNames {
+export enum IconNames {
     // (undocumented)
     AADLogo = "AADLogo",
     // (undocumented)

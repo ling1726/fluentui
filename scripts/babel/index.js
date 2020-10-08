@@ -37,6 +37,7 @@ module.exports = api => {
     ['@babel/plugin-proposal-optional-chaining', { loose: true }],
     '@babel/plugin-syntax-dynamic-import',
     ['@babel/plugin-transform-runtime', { useESModules }],
+    ['@babel/plugin-proposal-decorators', { legacy: true }],
 
     useESModules && 'babel-plugin-iife-wrap-react-components',
     useESModules && [
