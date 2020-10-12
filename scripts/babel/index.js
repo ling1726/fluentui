@@ -31,13 +31,13 @@ module.exports = api => {
     ['@babel/preset-typescript', { allowNamespaces: true }],
   ];
   const plugins = [
+    ['@babel/plugin-proposal-decorators', { legacy: true }],
     ['@babel/plugin-proposal-class-properties', { loose: true }],
     ['@babel/plugin-proposal-nullish-coalescing-operator', { loose: true }],
     ['@babel/plugin-proposal-object-rest-spread', { loose: true, useBuiltIns: true }],
     ['@babel/plugin-proposal-optional-chaining', { loose: true }],
     '@babel/plugin-syntax-dynamic-import',
     ['@babel/plugin-transform-runtime', { useESModules }],
-    ['@babel/plugin-proposal-decorators', { legacy: true }],
 
     useESModules && 'babel-plugin-iife-wrap-react-components',
     useESModules && [
