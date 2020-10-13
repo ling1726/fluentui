@@ -3,7 +3,6 @@ import { useImmerReducer, Reducer } from 'use-immer';
 import { Text, Button, Divider } from '@fluentui/react-northstar';
 import { FilesCodeIcon, AcceptIcon } from '@fluentui/react-icons-northstar';
 import { EventListener } from '@fluentui/react-component-event-listener';
-import { DefaultButton as FabricButton } from '@fluentui/react';
 import { renderElementToJSX, CodeSandboxExporter, CodeSandboxState } from '@fluentui/docs-components';
 
 import { componentInfoContext } from '../componentInfo/componentInfoContext';
@@ -697,8 +696,10 @@ export const Designer: React.FunctionComponent = () => {
             <BrowserWindow
               showNavBar={false}
               headerItems={[
-                <div style={{ marginLeft: 10 }}>{mode === 'use' && <Text error>{headerMessage}</Text>}</div>,
-                <div style={{ display: 'flex', alignItems: 'baseline', marginLeft: 'auto' }}>
+                <div key="headerMessage" style={{ marginLeft: 10 }}>
+                  {mode === 'use' && <Text error>{headerMessage}</Text>}
+                </div>,
+                <div key="container" style={{ display: 'flex', alignItems: 'baseline', marginLeft: 'auto' }}>
                   {jsonTreeOrigin === 'url' && (
                     <>
                       <Text error>You are working from a shared URL, no changes are saved!</Text>
@@ -713,6 +714,7 @@ export const Designer: React.FunctionComponent = () => {
                     exampleLanguage="js"
                     exampleName="uibuilder"
                     imports={codeSandboxData.imports}
+                    key="codeSandboxExporter"
                   >
                     {(state, onCodeSandboxClick) => {
                       const codeSandboxContent =
@@ -725,16 +727,13 @@ export const Designer: React.FunctionComponent = () => {
                       const codeSandboxIcon = state === CodeSandboxState.Default ? <FilesCodeIcon /> : <AcceptIcon />;
 
                       return (
-                        <>
-                          <FabricButton text="Standard" onClick={() => {}} allowDisabledFocus />
-                          <Button
-                            loading={state === CodeSandboxState.Loading}
-                            styles={{ marginTop: 'auto', marginLeft: '0.7rem' }}
-                            onClick={onCodeSandboxClick}
-                            icon={codeSandboxIcon}
-                            content={codeSandboxContent}
-                          />
-                        </>
+                        <Button
+                          loading={state === CodeSandboxState.Loading}
+                          styles={{ marginTop: 'auto', marginLeft: '0.7rem' }}
+                          onClick={onCodeSandboxClick}
+                          icon={codeSandboxIcon}
+                          content={codeSandboxContent}
+                        />
                       );
                     }}
                   </CodeSandboxExporter>
