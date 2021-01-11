@@ -51,6 +51,9 @@ declare module 'screener-runner' {
       /** This will pause execution for the specified number of ms. */
       wait(ms: number): ScreenerStepBuilder;
 
+      /** This will pause execution for the specified number of ms. */
+      wait(selector: string): ScreenerStepBuilder;
+
       /** This will override the global cssAnimations option for the current UI state. Set to true to enable CSS Animations, and set to false to disable. */
       cssAnimations(isEnabled: boolean): ScreenerStepBuilder;
 

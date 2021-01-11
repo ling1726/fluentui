@@ -21,6 +21,8 @@ const getScreenerSteps = (pageUrl: string, stepsModulePath: string): any[] => {
   const stepsBuilder: ScreenerStepBuilder = new Steps();
   const { steps: screenerSteps, themes = DEFAULT_THEMES }: ScreenerTestsConfig = require(stepsModulePath).default;
 
+  stepsBuilder.wait('.ui-provider');
+
   _.forEach(themes, themeName => {
     stepsBuilder.switchTheme(themeName).snapshot(`Theme: ${themeName}`);
 
