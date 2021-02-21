@@ -4,9 +4,17 @@
 
 ## Background
 
-This package acts as a facade wrapper around [ability-helpers](https://github.com/microsoft/ability-helpers) and exposes a set of hooks and utilities for focus management
+### Ability helpers
+
+This package acts as a facade wrapper around [ability-helpers](https://github.com/microsoft/ability-helpers) and exposes a set of hooks and utilities for focus management. The [ability-helpers](https://github.com/microsoft/ability-helpers) library is designed to be a lower level utility that manages the state of focusable elements than any rendering framework.
+
+Some patterns in the library are **declarative**, and therefore decoupled more easily with framework and application code. Groups of focusables are managed by declaring `data-*` attributes which the lower level utilties use to define focusable behaviour on the **visible** DOM.
+
+### React hooks pattern
 
 This spec proposes an API based on React hooks pattern. [ability-helpers](https://github.com/microsoft/ability-helpers) works mainly on adding `data-*` attributes to DOM elements to apply configurable behaviours to the 'groups' of focusables.
+
+The use of a set of React hooks that encapsulates behaviour of focus management requirements/aspects correctly should be easier to use than than the current `FocusZone` components. As documented in the below sections, `FocusZone` is an 'one fits all' component that is hard to use and maintain. Additionally the use of React components to manage focus break all notion of component encapsulation.
 
 However some internal behaviours such as `modalizer` or `deloser` require DOM elements during the configuration phase, which will be most easily configured in React using `refs`.
 
@@ -18,7 +26,9 @@ No Open UI research was conducted for this spec because it is not a UI component
 
 ### Focus Zone
 
-Comparison TBA
+Both v7 and v0 have the concept of a React component called `FocusZone`. v7 allows end consumers to use this component but v0 chooses to keep its `FocusZone` as an internal implementation used by components.
+
+The [v7 FocusZone](https://developer.microsoft.com/en-us/fluentui#/controls/web/focuszone) is intended to be a component wrapper that will handle all keyboarding behaviours in its children.
 
 ## Sample Code
 
