@@ -83,10 +83,7 @@ export const useMenuList = (
     [findAllFocusable, state.ref],
   );
 
-  const [checkedValues, setCheckedValues] = useControllableValue({
-    controlledValue: state.checkedValues,
-    defaultUncontrolledValue: state.defaultCheckedValues,
-  });
+  const [checkedValues, setCheckedValues] = useControllableValue(state.checkedValues, state.defaultCheckedValues);
   state.checkedValues = checkedValues;
   const { onCheckedValueChange } = state;
   state.toggleCheckbox = useEventCallback(
