@@ -60,6 +60,7 @@
     "@fluentui/react-focus": "^8.0.4",
     "@fluentui/react-hooks": "^8.1.0",
     "@fluentui/react-icons-mdl2": "^1.0.2",
+    "@fluentui/react-icons-mdl2-branded": "^1.0.2",
     "@fluentui/react-image": "^9.0.0-alpha.15",
     "@fluentui/react-link": "^9.0.0-alpha.15",
     "@fluentui/react-make-styles": "^9.0.0-alpha.14",

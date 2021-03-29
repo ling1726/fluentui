@@ -103,19 +103,22 @@ export const useTriggerElement = (state: UseTriggerElementState): MenuTriggerSta
     child.props?.onBlur?.(e);
   });
 
+  const disabled = child.props?.disabled;
   const triggerProps: Partial<React.HTMLAttributes<HTMLElement>> = {
     'aria-haspopup': true,
     'aria-expanded': open,
     id: triggerId,
     ...(child.props || {}),
 
-    // These handlers should always handle the child's props
-    onClick,
-    onMouseEnter,
-    onContextMenu,
-    onKeyDown,
-    onKeyUp,
-    onBlur,
+    ...(!disabled && {
+      // These handlers should always handle the child's original handlers
+      onClick,
+      onMouseEnter,
+      onContextMenu,
+      onKeyDown,
+      onKeyUp,
+      onBlur,
+    }),
   };
 
   state.children = React.cloneElement(child, {

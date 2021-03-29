@@ -84,6 +84,7 @@ describe('Menu', () => {
     ['onMouseLeave', fireEvent.mouseLeave],
     ['onBlur', fireEvent.blur],
     ['onKeyDown', fireEvent.keyDown],
+    ['onClick', fireEvent.click],
   ])('should pass original %s handler to menu popup', (handler, trigger) => {
     // Arrange
     const spy = jest.fn();
@@ -125,6 +126,27 @@ describe('Menu', () => {
 
     // Assert
     expect(queryByRole('menuitem')).toBeNull();
+  });
+
+  it('should not close menu after clicking on a disabled menuitem', () => {
+    // Arrange
+    const { getByRole } = render(
+      <Menu>
+        <MenuTrigger>
+          <button>Menu trigger</button>
+        </MenuTrigger>
+        <MenuList>
+          <MenuItem disabled>Item</MenuItem>
+        </MenuList>
+      </Menu>,
+    );
+
+    // Act
+    fireEvent.click(getByRole('button'));
+    fireEvent.click(getByRole('menuitem'));
+
+    // Assert
+    getByRole('menu');
   });
 
   it('should persist selection after popup close', () => {

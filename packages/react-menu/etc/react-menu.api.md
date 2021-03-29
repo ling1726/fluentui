@@ -76,7 +76,10 @@ export interface MenuItemCheckboxState extends MenuItemState, MenuItemSelectable
 
 // @public (undocumented)
 export interface MenuItemProps extends ComponentProps, React.HTMLAttributes<HTMLElement> {
+    disabled?: boolean;
+    hasSubmenu?: boolean;
     icon?: ShorthandProps<React.HTMLAttributes<HTMLElement>>;
+    submenuIndicator?: ShorthandProps<React.HTMLAttributes<HTMLElement>>;
 }
 
 // @public
@@ -100,6 +103,7 @@ export interface MenuItemRadioState extends MenuItemState, MenuItemSelectableSta
 
 // @public
 export interface MenuItemSelectableProps extends React.HTMLAttributes<HTMLElement> {
+    disabled?: boolean;
     name: string;
     value: string;
 }
@@ -118,6 +122,7 @@ export const menuItemShorthandProps: string[];
 export interface MenuItemState extends MenuItemProps {
     icon?: ObjectShorthandProps<React.HTMLAttributes<HTMLSpanElement>>;
     ref: React.MutableRefObject<HTMLElement>;
+    submenuIndicator?: ObjectShorthandProps<React.HTMLAttributes<HTMLElement>>;
 }
 
 // @public
