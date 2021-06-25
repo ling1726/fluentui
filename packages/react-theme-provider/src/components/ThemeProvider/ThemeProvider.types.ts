@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { ComponentProps } from '@fluentui/react-utilities';
+import { ComponentPropsCompat } from '@fluentui/react-utilities';
 import { PartialTheme, Theme } from '@fluentui/react-theme';
 
-export interface ThemeProviderProps extends ComponentProps, React.HTMLAttributes<HTMLElement> {
+export interface ThemeProviderProps extends ComponentPropsCompat, React.HTMLAttributes<HTMLElement> {
   theme?: PartialTheme | Theme;
   /**
    * Document used to insert CSS variables to head

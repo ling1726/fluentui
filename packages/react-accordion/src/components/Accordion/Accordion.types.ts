@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ComponentProps, ComponentState, Descendant } from '@fluentui/react-utilities';
+import { ComponentPropsCompat, ComponentStateCompat, Descendant } from '@fluentui/react-utilities';
 import { AccordionHeaderProps, AccordionHeaderShorthandProps } from '../AccordionHeader/AccordionHeader.types';
 
 export type AccordionIndex = number | number[];
@@ -23,7 +23,10 @@ export interface AccordionContextValue extends AccordionHeaderCommonProps {
   requestToggle: NonNullable<AccordionProps['onToggle']>;
 }
 
-export interface AccordionProps extends ComponentProps, AccordionHeaderCommonProps, React.HTMLAttributes<HTMLElement> {
+export interface AccordionProps
+  extends ComponentPropsCompat,
+    AccordionHeaderCommonProps,
+    React.HTMLAttributes<HTMLElement> {
   /**
    * Indicates if keyboard navigation is available
    */
@@ -52,7 +55,7 @@ export type AccordionShorthandProps = Exclude<AccordionHeaderShorthandProps, 'ch
 export type AccordionDefaultedProps = 'collapsible' | 'multiple' | 'navigable';
 
 export interface AccordionState
-  extends ComponentState<AccordionProps, AccordionShorthandProps, AccordionDefaultedProps> {
+  extends ComponentStateCompat<AccordionProps, AccordionShorthandProps, AccordionDefaultedProps> {
   /**
    * Ref to the root slot
    */

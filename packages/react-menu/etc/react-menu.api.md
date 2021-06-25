@@ -4,13 +4,13 @@
 
 ```ts
 
-import { ComponentProps } from '@fluentui/react-utilities';
-import { ComponentState } from '@fluentui/react-utilities';
+import { ComponentPropsCompat } from '@fluentui/react-utilities';
+import { ComponentStateCompat } from '@fluentui/react-utilities';
 import { ContextSelector } from '@fluentui/react-context-selector';
-import { ObjectShorthandProps } from '@fluentui/react-utilities';
+import { ObjectShorthandPropsCompat } from '@fluentui/react-utilities';
 import { PositioningProps } from '@fluentui/react-positioning';
 import * as React_2 from 'react';
-import { ShorthandProps } from '@fluentui/react-utilities';
+import { ShorthandPropsCompat } from '@fluentui/react-utilities';
 import { usePopperMouseTarget } from '@fluentui/react-positioning';
 
 // @public
@@ -30,7 +30,7 @@ export interface MenuContextValue extends MenuListProps, Pick<MenuState, 'openOn
 export const MenuDivider: React_2.FunctionComponent<MenuDividerProps & React_2.RefAttributes<HTMLElement>>;
 
 // @public (undocumented)
-export type MenuDividerProps = ComponentProps & React_2.HTMLAttributes<HTMLElement>;
+export type MenuDividerProps = ComponentPropsCompat & React_2.HTMLAttributes<HTMLElement>;
 
 // @public (undocumented)
 export interface MenuDividerState extends MenuDividerProps {
@@ -53,7 +53,7 @@ export interface MenuGroupContextValue {
 export const MenuGroupHeader: React_2.FunctionComponent<MenuGroupHeaderProps>;
 
 // @public (undocumented)
-export type MenuGroupHeaderProps = ComponentProps & React_2.HTMLAttributes<HTMLElement>;
+export type MenuGroupHeaderProps = ComponentPropsCompat & React_2.HTMLAttributes<HTMLElement>;
 
 // @public (undocumented)
 export interface MenuGroupHeaderState extends MenuGroupHeaderProps {
@@ -62,7 +62,7 @@ export interface MenuGroupHeaderState extends MenuGroupHeaderProps {
 }
 
 // @public (undocumented)
-export type MenuGroupProps = ComponentProps & React_2.HTMLAttributes<HTMLElement>;
+export type MenuGroupProps = ComponentPropsCompat & React_2.HTMLAttributes<HTMLElement>;
 
 // @public
 export const menuGroupShorthandProps: string[];
@@ -81,8 +81,8 @@ export const MenuItem: React_2.ForwardRefExoticComponent<MenuItemProps & React_2
 export const MenuItemCheckbox: React_2.ForwardRefExoticComponent<MenuItemCheckboxProps & React_2.RefAttributes<HTMLElement>>;
 
 // @public (undocumented)
-export interface MenuItemCheckboxProps extends ComponentProps, React_2.HTMLAttributes<HTMLElement>, MenuItemProps, MenuItemSelectableProps {
-    checkmark?: ShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
+export interface MenuItemCheckboxProps extends ComponentPropsCompat, React_2.HTMLAttributes<HTMLElement>, MenuItemProps, MenuItemSelectableProps {
+    checkmark?: ShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
 }
 
 // @public
@@ -90,30 +90,30 @@ export const menuItemCheckboxShorthandProps: readonly ["icon", "submenuIndicator
 
 // @public (undocumented)
 export interface MenuItemCheckboxState extends MenuItemState, MenuItemSelectableState {
-    checkmark: ObjectShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
+    checkmark: ObjectShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
     // (undocumented)
     ref: React_2.MutableRefObject<HTMLElement>;
 }
 
 // @public (undocumented)
-export interface MenuItemProps extends ComponentProps, React_2.HTMLAttributes<HTMLElement> {
-    checkmark?: ShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
-    content?: ShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
+export interface MenuItemProps extends ComponentPropsCompat, React_2.HTMLAttributes<HTMLElement> {
+    checkmark?: ShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
+    content?: ShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
     disabled?: boolean;
     hasSubmenu?: boolean;
-    icon?: ShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
+    icon?: ShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
     persistOnClick?: boolean;
-    secondaryContent?: ShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
-    submenuIndicator?: ShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
+    secondaryContent?: ShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
+    submenuIndicator?: ShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
 }
 
 // @public
 export const MenuItemRadio: React_2.ForwardRefExoticComponent<MenuItemRadioProps & React_2.RefAttributes<HTMLElement>>;
 
 // @public (undocumented)
-export interface MenuItemRadioProps extends ComponentProps, React_2.HTMLAttributes<HTMLElement>, MenuItemProps, MenuItemSelectableProps {
+export interface MenuItemRadioProps extends ComponentPropsCompat, React_2.HTMLAttributes<HTMLElement>, MenuItemProps, MenuItemSelectableProps {
     // (undocumented)
-    checkmark?: ShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
+    checkmark?: ShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
 }
 
 // @public
@@ -121,7 +121,7 @@ export const menuItemRadioShorthandProps: readonly ["icon", "submenuIndicator", 
 
 // @public (undocumented)
 export interface MenuItemRadioState extends MenuItemState, MenuItemSelectableState {
-    checkmark: ObjectShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
+    checkmark: ObjectShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
     // (undocumented)
     ref: React_2.MutableRefObject<HTMLElement>;
 }
@@ -145,12 +145,12 @@ export const menuItemShorthandProps: readonly ["icon", "submenuIndicator", "cont
 
 // @public (undocumented)
 export interface MenuItemState extends MenuItemProps {
-    checkmark: ObjectShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
-    content: ObjectShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
-    icon?: ObjectShorthandProps<React_2.HTMLAttributes<HTMLSpanElement>>;
+    checkmark: ObjectShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
+    content: ObjectShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
+    icon?: ObjectShorthandPropsCompat<React_2.HTMLAttributes<HTMLSpanElement>>;
     ref: React_2.MutableRefObject<HTMLElement>;
-    secondaryContent: ObjectShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
-    submenuIndicator?: ObjectShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
+    secondaryContent: ObjectShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
+    submenuIndicator?: ObjectShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
 }
 
 // @public
@@ -167,7 +167,7 @@ export interface MenuListContextValue extends Pick<MenuListProps, 'checkedValues
 }
 
 // @public (undocumented)
-export interface MenuListProps extends ComponentProps, React_2.HTMLAttributes<HTMLElement> {
+export interface MenuListProps extends ComponentPropsCompat, React_2.HTMLAttributes<HTMLElement> {
     checkedValues?: Record<string, string[]>;
     defaultCheckedValues?: Record<string, string[]>;
     hasCheckmarks?: boolean;
@@ -200,13 +200,13 @@ export type MenuOpenEvents = MouseEvent | TouchEvent | React_2.MouseEvent<HTMLEl
 export const MenuPopover: React_2.ForwardRefExoticComponent<MenuPopoverProps & React_2.RefAttributes<HTMLElement>>;
 
 // @public
-export interface MenuPopoverProps extends ComponentProps, React_2.HTMLAttributes<HTMLElement> {
+export interface MenuPopoverProps extends ComponentPropsCompat, React_2.HTMLAttributes<HTMLElement> {
     // (undocumented)
     children: React_2.ReactNode;
 }
 
 // @public
-export interface MenuPopoverState extends ComponentState<MenuPopoverProps>, Pick<MenuState, 'inline'> {
+export interface MenuPopoverState extends ComponentStateCompat<MenuPopoverProps>, Pick<MenuState, 'inline'> {
     ref: React_2.Ref<HTMLElement>;
 }
 
@@ -216,7 +216,7 @@ export interface MenuProps extends MenuListProps, Pick<PositioningProps, 'positi
     defaultOpen?: boolean;
     hoverDelay?: number;
     inline?: boolean;
-    menuPopup?: ShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
+    menuPopup?: ShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
     onOpenChange?: (e: MenuOpenEvents, data: MenuOpenChangeData) => void;
     open?: boolean;
     openOnContext?: boolean;
@@ -303,7 +303,7 @@ export type SelectableHandler = (e: React_2.MouseEvent | React_2.KeyboardEvent, 
 
 // @public
 export const useCheckmarkStyles: (state: MenuItemSelectableState & {
-    checkmark: ObjectShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
+    checkmark: ObjectShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
 }) => void;
 
 // @public

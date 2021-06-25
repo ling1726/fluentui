@@ -1,4 +1,4 @@
-import { ComponentState } from '@fluentui/react-utilities';
+import { ComponentStateCompat } from '@fluentui/react-utilities';
 import { ButtonDefaultedProps, ButtonProps, ButtonShorthandProps, ButtonState } from '../Button/Button.types';
 
 /**
@@ -37,4 +37,4 @@ export type ToggleButtonDefaultedProps = ButtonDefaultedProps;
  */
 export interface ToggleButtonState
   extends ButtonState,
-    ComponentState<ToggleButtonProps, ToggleButtonShorthandProps, ToggleButtonDefaultedProps> {}
+    ComponentStateCompat<ToggleButtonProps, ToggleButtonShorthandProps, ToggleButtonDefaultedProps> {}

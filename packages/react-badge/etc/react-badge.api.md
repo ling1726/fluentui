@@ -4,10 +4,10 @@
 
 ```ts
 
-import { ComponentProps } from '@fluentui/react-utilities';
-import { ObjectShorthandProps } from '@fluentui/react-utilities';
+import { ComponentPropsCompat } from '@fluentui/react-utilities';
+import { ObjectShorthandPropsCompat } from '@fluentui/react-utilities';
 import * as React_2 from 'react';
-import { ShorthandProps } from '@fluentui/react-utilities';
+import { ShorthandPropsCompat } from '@fluentui/react-utilities';
 
 // @public
 export const Badge: React_2.FunctionComponent<BadgeProps & React_2.RefAttributes<HTMLElement>>;
@@ -19,10 +19,10 @@ export type BadgeAppearance = 'filled' | 'outline' | 'ghost' | 'tint';
 export type BadgeColors = 'brand' | 'danger' | 'severe' | 'warning' | 'success' | 'important' | 'informative' | 'subtle';
 
 // @public (undocumented)
-export interface BadgeProps extends ComponentProps, React_2.HTMLAttributes<HTMLElement> {
+export interface BadgeProps extends ComponentPropsCompat, React_2.HTMLAttributes<HTMLElement> {
     appearance?: BadgeAppearance;
     color?: BadgeColors;
-    icon?: ShorthandProps<React_2.HTMLAttributes<HTMLElement>>;
+    icon?: ShorthandPropsCompat<React_2.HTMLAttributes<HTMLElement>>;
     iconPosition?: 'before' | 'after';
     shape?: BadgeShape;
     size?: BadgeSize;
@@ -39,7 +39,7 @@ export type BadgeSize = 'smallest' | 'smaller' | 'small' | 'medium' | 'large' | 
 
 // @public (undocumented)
 export interface BadgeState extends BadgeProps {
-    icon?: ObjectShorthandProps<React_2.HTMLAttributes<HTMLSpanElement>>;
+    icon?: ObjectShorthandPropsCompat<React_2.HTMLAttributes<HTMLSpanElement>>;
     ref: React_2.RefObject<HTMLElement>;
 }
 

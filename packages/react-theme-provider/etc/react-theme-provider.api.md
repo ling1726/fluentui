@@ -4,7 +4,7 @@
 
 ```ts
 
-import { ComponentProps } from '@fluentui/react-utilities';
+import { ComponentPropsCompat } from '@fluentui/react-utilities';
 import { PartialTheme } from '@fluentui/react-theme';
 import * as React_2 from 'react';
 import { Theme } from '@fluentui/react-theme';
@@ -17,7 +17,7 @@ export function renderThemeProvider(state: ThemeProviderState): JSX.Element;
 export const ThemeProvider: React_2.ForwardRefExoticComponent<ThemeProviderProps & React_2.RefAttributes<HTMLElement>>;
 
 // @public (undocumented)
-export interface ThemeProviderProps extends ComponentProps, React_2.HTMLAttributes<HTMLElement> {
+export interface ThemeProviderProps extends ComponentPropsCompat, React_2.HTMLAttributes<HTMLElement> {
     targetDocument?: Document | undefined;
     // (undocumented)
     theme?: PartialTheme | Theme;
