@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Converts react-utilities/compose usage to Compat",
+  "packageName": "@fluentui/react-tooltip",
+  "email": "bsunderhus@microsoft.com",
+  "dependentChangeType": "patch"
+}

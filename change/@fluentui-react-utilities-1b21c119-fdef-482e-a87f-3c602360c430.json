@@ -1,0 +1,7 @@
+{
+  "type": "prerelease",
+  "comment": "Simplify prop merging",
+  "packageName": "@fluentui/react-utilities",
+  "email": "bsunderhus@microsoft.com",
+  "dependentChangeType": "patch"
+}
