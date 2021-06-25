@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { ComponentState, ShorthandRenderFunction, SlotPropsRecord } from './types';
 import { nullRender } from './nullRender';
-import { getNativeElementProps, omit } from '../utils';
+import { getNativeElementProps, omit } from '../utils/index';
 
 function getSlot(
   component: React.ElementType | undefined,
