@@ -18,12 +18,6 @@ export const baseElementEvents: Record<string, number>;
 // @public
 export const baseElementProperties: Record<string, number>;
 
-// @public (undocumented)
-export interface BaseSlots {
-    // (undocumented)
-    root: React_2.ElementType;
-}
-
 // @public
 export const buttonProperties: Record<string, number>;
 
@@ -33,9 +27,6 @@ export function canUseDOM(): boolean;
 // @public (undocumented)
 export type ChangeCallback<TElement extends HTMLElement, TValue, TEvent extends React_2.SyntheticEvent<TElement> | undefined> = (ev: TEvent, newValue: TValue | undefined) => void;
 
-// @public
-export type ClassDictionary = Record<string, string>;
-
 // @public (undocumented)
 export const colGroupProperties: Record<string, number>;
 
@@ -43,17 +34,22 @@ export const colGroupProperties: Record<string, number>;
 export const colProperties: Record<string, number>;
 
 // @public (undocumented)
-export interface ComponentProps {
-    // (undocumented)
-    as?: React_2.ElementType;
-    // (undocumented)
-    children?: React_2.ReactNode;
-    // (undocumented)
+export type ComponentProps<Record extends SlotPropsRecord = {}> = {
+    as?: keyof JSX.IntrinsicElements;
     className?: string;
-}
+    children?: React_2.ReactNode;
+} & ShorthandPropsRecord<Record>;
 
-// @public
-export type ComponentState<Props, ShorthandPropNames extends keyof Props = never, DefaultedPropNames extends keyof ResolvedShorthandProps<Props, ShorthandPropNames> = never> = RequiredProps<ResolvedShorthandProps<Props, ShorthandPropNames>, DefaultedPropNames>;
+// @public (undocumented)
+export type ComponentState<Record extends SlotPropsRecord = {}> = Pick<ComponentProps<Record>, 'as' | 'children' | 'className'> & {
+    components?: {
+        [K in keyof Record]?: React_2.ElementType<Record[K]>;
+    };
+} & {
+    components?: {
+        root?: React_2.ElementType;
+    };
+} & ObjectShorthandPropsRecord<Record>;
 
 // @public (undocumented)
 export function createDescendantContext<DescendantType extends Descendant>(name: string, initialValue?: {}): React_2.Context<DescendantContextValue<DescendantType>>;
@@ -106,7 +102,19 @@ export function getNativeElementProps<TAttributes extends React_2.HTMLAttributes
 export function getNativeProps<T extends Record<string, any>>(props: Record<string, any>, allowedPropNames: string[] | Record<string, number>, excludedPropNames?: string[]): T;
 
 // @public
-export const getSlots: (state: GenericDictionary, slotNames?: readonly string[] | undefined) => {
+export function getSlots<SlotProps extends SlotPropsRecord = {}>(state: ComponentState<SlotProps>, slotNames?: Array<keyof SlotProps>): {
+    readonly slots: { [K in keyof SlotProps]: React_2.ElementType<SlotProps[K]>; } & {
+        root: React_2.ElementType;
+    };
+    readonly slotProps: SlotProps & {
+        root: any;
+    };
+};
+
+// Warning: (ae-forgotten-export) The symbol "GenericDictionary" needs to be exported by the entry point index.d.ts
+//
+// @public
+export const getSlotsCompat: (state: GenericDictionary_2, slotNames?: readonly string[] | undefined) => {
     slots: Record<string, any>;
     slotProps: Record<string, any>;
 };
@@ -125,6 +133,9 @@ export const imgProperties: Record<string, number>;
 
 // @public
 export const inputProperties: Record<string, number>;
+
+// @public (undocumented)
+export function isObjectShorthandProps<P>(value: ShorthandProps<P>): value is ObjectShorthandProps<P>;
 
 // @public
 export const labelProperties: Record<string, number>;
@@ -147,15 +158,22 @@ export type MergePropsOptions<TState> = {
 export const nullRender: () => null;
 
 // @public (undocumented)
-export type ObjectShorthandProps<TProps extends ComponentProps = {}> = TProps & Omit<ComponentProps, 'children'> & {
-    children?: TProps['children'] | ShorthandRenderFunction<TProps>;
+export type ObjectShorthandProps<Props extends {
+    children?: React_2.ReactNode;
+} = {}> = Props & Pick<ComponentProps, 'as'> & {
+    children?: Props['children'] | ShorthandRenderFunction<Props>;
+};
+
+// @public (undocumented)
+export type ObjectShorthandPropsRecord<Record extends SlotPropsRecord = {}> = {
+    [K in keyof Record]: ObjectShorthandProps<NonNullable<Record[K]>>;
 };
 
 // @public
 export const olProperties: Record<string, number>;
 
 // @public
-export function omit<TObj extends Record<string, any>>(obj: TObj, exclusions: (keyof TObj)[]): TObj;
+export function omit<TObj extends Record<string, any>, Exclusions extends (keyof TObj)[]>(obj: TObj, exclusions: Exclusions): Omit<TObj, Exclusions[number]>;
 
 // @public
 export const onlyChild: (child: React_2.ReactNode) => React_2.ReactElement;
@@ -167,17 +185,15 @@ export const optionProperties: Record<string, number>;
 export type RefObjectFunction<T> = React_2.RefObject<T> & ((value: T) => void);
 
 // @public
-export type RequiredProps<T, K extends keyof T> = Omit<T, K> & {
-    [P in K]-?: T[P];
-};
-
-// @public
 export function resetIdsForTests(): void;
 
-// @public
+// @public (undocumented)
 export type ResolvedShorthandProps<T, K extends keyof T> = Omit<T, K> & {
     [P in K]: T[P] extends ShorthandProps<infer U> ? ObjectShorthandProps<U> : T[P];
 };
+
+// @public (undocumented)
+export function resolveShorthand<T extends Record<string, any>>(value: ShorthandProps<T>, defaultProps?: T): ObjectShorthandProps<T>;
 
 // @public
 export const resolveShorthandProps: <TProps, TShorthandPropNames extends keyof TProps>(props: TProps, shorthandPropNames: readonly TShorthandPropNames[]) => ResolvedShorthandProps<TProps, TShorthandPropNames>;
@@ -186,20 +202,21 @@ export const resolveShorthandProps: <TProps, TShorthandPropNames extends keyof T
 export const selectProperties: Record<string, number>;
 
 // @public (undocumented)
-export type ShorthandProps<TProps extends ComponentProps = {}> = React_2.ReactChild | React_2.ReactNodeArray | React_2.ReactPortal | number | null | undefined | ObjectShorthandProps<TProps>;
+export type ShorthandProps<Props = {}> = React_2.ReactChild | React_2.ReactNodeArray | React_2.ReactPortal | number | null | undefined | ObjectShorthandProps<Props>;
 
 // @public (undocumented)
-export type ShorthandRenderFunction<TProps> = (Component: React_2.ElementType<TProps>, props: TProps) => React_2.ReactNode;
+export type ShorthandPropsRecord<Record extends SlotPropsRecord = {}> = {
+    [K in keyof Record]: ShorthandProps<NonNullable<Record[K]>>;
+};
+
+// @public (undocumented)
+export type ShorthandRenderFunction<Props> = (Component: React_2.ElementType<Props>, props: Props) => React_2.ReactNode;
 
 // @public
 export function shouldPreventDefaultOnKeyDown(e: KeyboardEvent | React_2.KeyboardEvent): boolean;
 
-// @public (undocumented)
-export type SlotProps<TSlots extends BaseSlots, TProps, TRootProps extends React_2.HTMLAttributes<HTMLElement>> = {
-    [key in keyof Omit<TSlots, 'root'>]: key extends keyof TProps ? TProps[key] : any;
-} & {
-    root: TRootProps;
-};
+// @public
+export type SlotPropsRecord = Record<string, Record<string, any> | undefined>;
 
 // Warning: (ae-incompatible-release-tags) The symbol "SSRContext" is marked as @public, but its signature references "SSRContextValue" which is marked as @internal
 //

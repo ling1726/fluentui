@@ -1,8 +1,87 @@
 import * as React from 'react';
 
-import { getNativeElementProps, omit } from '../utils/index';
-import { GenericDictionary } from './types';
+import { ComponentState, ShorthandRenderFunction, SlotPropsRecord } from './types';
 import { nullRender } from './nullRender';
+import { getNativeElementProps, omit } from '../utils';
+
+function getSlot(
+  component: React.ElementType | undefined,
+  alternative: keyof JSX.IntrinsicElements | undefined,
+  defaultValue: React.ElementType,
+) {
+  return (
+    (component === undefined || typeof component === 'string' ? alternative ?? component : component) ?? defaultValue
+  );
+}
+
+/**
+ * Given the state and an array of slot names, will break out `slots` and `slotProps`
+ * collections.
+ *
+ * The root is derived from a mix of `components` props and `as` prop.
+ *
+ * Slots will render as null if they are rendered as primitives with undefined children.
+ *
+ * The slotProps will always omit the `as` prop within them, and for slots that are string
+ * primitives, the props will be filtered according the the slot type. For example, if the
+ * slot is rendered `as: 'a'`, the props will be filtered for acceptable anchor props.
+ *
+ * @param state - State including slot definitions
+ * @param slotNames - Name of which props are slots
+ * @returns An object containing the `slots` map and `slotProps` map.
+ */
+export function getSlots<SlotProps extends SlotPropsRecord = {}>(
+  state: ComponentState<SlotProps>,
+  slotNames?: Array<keyof SlotProps>,
+) {
+  /**
+   * force typings on state, this should not be added directly in parameters to avoid type inference
+   */
+  const typedState = state as ComponentState<SlotProps>;
+  type Slots = { [K in keyof SlotProps]: React.ElementType<SlotProps[K]> };
+  const slots = {} as Slots;
+  const slotProps = {} as SlotProps;
+
+  if (slotNames) {
+    for (const name of slotNames) {
+      const { as, children, ...rest } = typedState[name];
+
+      slots[name] = getSlot(typedState.components?.[name], as, 'span') as Slots[typeof name];
+
+      // Empty Slot
+      if (typeof slots[name] === 'string' && children === undefined) {
+        slots[name] = nullRender;
+        continue;
+      }
+
+      slotProps[name] =
+        typeof slots[name] === 'string'
+          ? ({ ...rest, children } as ComponentState<SlotProps>[keyof SlotProps])
+          : typedState[name];
+
+      if (typeof children === 'function') {
+        const render = children as ShorthandRenderFunction<SlotProps[keyof SlotProps]>;
+        // TODO: converting to unknown might be harmful
+        slotProps[name] = ({
+          children: render(slots[name], { ...rest, as } as ComponentState<SlotProps>[keyof SlotProps]),
+        } as unknown) as SlotProps[keyof SlotProps];
+        slots[name] = React.Fragment;
+      }
+    }
+  }
+
+  const slotsWithRoot = slots as Slots & { root: React.ElementType };
+  slotsWithRoot.root = getSlot(typedState.components?.root, typedState.as, 'div');
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const slotPropsWithRoot = slotProps as SlotProps & { root: any };
+  slotPropsWithRoot.root = typeof slots.root === 'string' ? getNativeElementProps(slots.root, typedState) : typedState;
+
+  return { slots: slotsWithRoot, slotProps: slotPropsWithRoot } as const;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type GenericDictionary = Record<string, any>;
 
 /**
  * Given the state and an array of slot names, will break out `slots` and `slotProps`
@@ -20,7 +99,7 @@ import { nullRender } from './nullRender';
  * @param slotNames - Name of which props are slots
  * @returns An object containing the `slots` map and `slotProps` map.
  */
-export const getSlots = (state: GenericDictionary, slotNames?: readonly string[]) => {
+export const getSlotsCompat = (state: GenericDictionary, slotNames?: readonly string[]) => {
   const slots: GenericDictionary = {
     root: state.as || 'div',
   };
