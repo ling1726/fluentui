@@ -1,6 +1,18 @@
 import { isValidElement } from 'react';
 import { ObjectShorthandProps, ShorthandProps } from './types';
 
+/**
+ * Resolves ShorthandProps into ObjectShorthandProps, to ensure normalization of the signature
+ * being passed down to getSlots method
+ *
+ * @example
+ * const state = {
+ *  icon: resolveShorthand(props.icon)
+ * }
+ *
+ * @param value - the base ShorthandProps
+ * @param defaultProps - base properties to be merged with the end ObjectShorthandProps
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function resolveShorthand<T extends Record<string, any>>(
   value: ShorthandProps<T>,

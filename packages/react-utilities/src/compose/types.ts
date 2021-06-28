@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-// TODO: delete this
+// TODO: delete GenericDictionary, this is harmful for overall typings of the lib
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type GenericDictionary = Record<string, any>;
 

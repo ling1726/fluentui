@@ -5,13 +5,14 @@ import { nullRender } from './nullRender';
 import { getNativeElementProps, omit } from '../utils/index';
 
 function getSlot(
-  component: React.ElementType | undefined,
-  alternative: keyof JSX.IntrinsicElements | undefined,
-  defaultValue: React.ElementType,
+  defaultComponent: React.ElementType | undefined,
+  userComponent: keyof JSX.IntrinsicElements | undefined,
+  alternativeComponent: React.ElementType,
 ) {
-  return (
-    (component === undefined || typeof component === 'string' ? alternative ?? component : component) ?? defaultValue
-  );
+  if (defaultComponent === undefined || typeof defaultComponent === 'string') {
+    return userComponent ?? defaultComponent ?? alternativeComponent;
+  }
+  return defaultComponent;
 }
 
 /**
