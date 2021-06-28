@@ -221,7 +221,7 @@ export type ResolvedShorthandPropsCompat<T, K extends keyof T> = Omit<T, K> & {
     [P in K]: T[P] extends ShorthandPropsCompat<infer U> ? ObjectShorthandPropsCompat<U> : T[P];
 };
 
-// @public (undocumented)
+// @public
 export function resolveShorthand<T extends Record<string, any>>(value: ShorthandProps<T>, defaultProps?: T): ObjectShorthandProps<T>;
 
 // @public
