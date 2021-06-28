@@ -1,9 +1,9 @@
 import { isValidElement } from 'react';
-import { ObjectShorthandProps, ShorthandPropsCompat } from './types';
+import { ObjectShorthandProps, ShorthandProps } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function resolveShorthand<T extends Record<string, any>>(
-  value: ShorthandPropsCompat<T>,
+  value: ShorthandProps<T>,
   defaultProps?: T,
 ): ObjectShorthandProps<T> {
   let resolvedShorthand = {} as ObjectShorthandProps<T>;
@@ -17,6 +17,6 @@ export function resolveShorthand<T extends Record<string, any>>(
   return defaultProps ? { ...defaultProps, ...resolvedShorthand } : resolvedShorthand;
 }
 
-export function isObjectShorthandProps<P>(value: ShorthandPropsCompat<P>): value is ObjectShorthandProps<P> {
+export function isObjectShorthandProps<P>(value: ShorthandProps<P>): value is ObjectShorthandProps<P> {
   return typeof value === 'object';
 }

@@ -154,7 +154,7 @@ export const imgProperties: Record<string, number>;
 export const inputProperties: Record<string, number>;
 
 // @public (undocumented)
-export function isObjectShorthandProps<P>(value: ShorthandPropsCompat<P>): value is ObjectShorthandProps<P>;
+export function isObjectShorthandProps<P>(value: ShorthandProps<P>): value is ObjectShorthandProps<P>;
 
 // @public
 export const labelProperties: Record<string, number>;
@@ -222,7 +222,7 @@ export type ResolvedShorthandPropsCompat<T, K extends keyof T> = Omit<T, K> & {
 };
 
 // @public (undocumented)
-export function resolveShorthand<T extends Record<string, any>>(value: ShorthandPropsCompat<T>, defaultProps?: T): ObjectShorthandProps<T>;
+export function resolveShorthand<T extends Record<string, any>>(value: ShorthandProps<T>, defaultProps?: T): ObjectShorthandProps<T>;
 
 // @public
 export const resolveShorthandProps: <TProps, TShorthandPropNames extends keyof TProps>(props: TProps, shorthandPropNames: readonly TShorthandPropNames[]) => ResolvedShorthandPropsCompat<TProps, TShorthandPropNames>;
