@@ -17,11 +17,12 @@ export const useMenuItemRadio = (
   ref: React.Ref<HTMLElement>,
   defaultProps?: MenuItemRadioProps,
 ): MenuItemRadioState => {
-  const state = useMenuItem(props, ref, {
+  const radioProps = {
     role: 'menuitemradio',
-    checkmark: { as: 'span', children: <AcceptIcon /> },
-    ...defaultProps,
-  }) as MenuItemRadioState;
+    checkmark: { children: <AcceptIcon /> },
+  };
+
+  const state = useMenuItem({ ...props, ...radioProps }, ref) as MenuItemRadioState;
 
   const selectRadio = useMenuListContext(context => context.selectRadio);
   const { onClick: onClickOriginal } = state;

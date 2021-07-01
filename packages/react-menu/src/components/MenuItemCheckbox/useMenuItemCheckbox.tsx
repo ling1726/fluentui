@@ -15,11 +15,13 @@ export const useMenuItemCheckbox = (
   ref: React.Ref<HTMLElement>,
   defaultProps?: MenuItemCheckboxProps,
 ): MenuItemCheckboxState => {
-  const state = useMenuItem(props, ref, {
+  const checkboxProps = {
     role: 'menuitemcheckbox',
-    checkmark: { as: 'span', children: <AcceptIcon /> },
+    checkmark: { children: <AcceptIcon /> },
     persistOnClick: true,
-  }) as MenuItemCheckboxState;
+  };
+
+  const state = useMenuItem({ ...props, ...checkboxProps }, ref) as MenuItemCheckboxState;
 
   const toggleCheckbox = useMenuListContext(context => context.toggleCheckbox);
   const { onClick: onClickOriginal } = state;
