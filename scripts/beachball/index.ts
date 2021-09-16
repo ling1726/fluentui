@@ -11,6 +11,12 @@ const fluentConvergedPackagePaths = Object.values(allPackageInfo)
       return packageInfo.packagePath;
     }
 
+    const hardCoded = ['@fluentui/perf-test', '@fluentui/vr-test', '@fluentui/react-storybook'];
+
+    if (hardCoded.includes(packageInfo.packageJson.name)) {
+      return packageInfo.packagePath;
+    }
+
     return false;
   })
   .filter(Boolean) as string[];
@@ -26,6 +32,7 @@ export const config: BeachballConfig = {
   disallowedChangeTypes: ['major', 'prerelease'],
   tag: 'latest',
   generateChangelog: true,
+  gitTags: false,
   registry:
     'https://uifabric.pkgs.visualstudio.com/4ed167b9-ac3a-405b-b967-443af8db8961/_packaging/ling-test1/npm/registry/',
   // @ts-ignore
