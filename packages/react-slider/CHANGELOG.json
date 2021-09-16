@@ -2,6 +2,29 @@
   "name": "@fluentui/react-slider",
   "entries": [
     {
+      "date": "Thu, 16 Sep 2021 18:38:03 GMT",
+      "tag": "@fluentui/react-slider_v9.0.0-alpha.6",
+      "version": "9.0.0-alpha.6",
+      "comments": {
+        "none": [
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/react-slider",
+            "comment": "blabla",
+            "commit": "618d957a84593a0275dcbc8482d29457f3bce3cf"
+          }
+        ],
+        "prerelease": [
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/react-slider",
+            "commit": "618d957a84593a0275dcbc8482d29457f3bce3cf",
+            "comment": "Bump @fluentui/react-slider to v9.0.0-alpha.6"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Sep 2021 07:38:39 GMT",
       "tag": "@fluentui/react-slider_v9.0.0-alpha.5",
       "version": "9.0.0-alpha.5",

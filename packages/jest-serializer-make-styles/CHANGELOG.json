@@ -2,6 +2,27 @@
   "name": "@fluentui/jest-serializer-make-styles",
   "entries": [
     {
+      "date": "Thu, 16 Sep 2021 18:38:03 GMT",
+      "tag": "@fluentui/jest-serializer-make-styles_v9.0.0-alpha.41",
+      "version": "9.0.0-alpha.41",
+      "comments": {
+        "none": [
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/jest-serializer-make-styles",
+            "comment": "blabla",
+            "commit": "618d957a84593a0275dcbc8482d29457f3bce3cf"
+          },
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/jest-serializer-make-styles",
+            "commit": "618d957a84593a0275dcbc8482d29457f3bce3cf",
+            "comment": "Bump @fluentui/jest-serializer-make-styles to v9.0.0-alpha.41"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Sep 2021 07:38:39 GMT",
       "tag": "@fluentui/jest-serializer-make-styles_v9.0.0-alpha.41",
       "version": "9.0.0-alpha.41",

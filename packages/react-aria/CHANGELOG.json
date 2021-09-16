@@ -2,6 +2,27 @@
   "name": "@fluentui/react-aria",
   "entries": [
     {
+      "date": "Thu, 16 Sep 2021 18:38:03 GMT",
+      "tag": "@fluentui/react-aria_v9.0.0-alpha.32",
+      "version": "9.0.0-alpha.32",
+      "comments": {
+        "none": [
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/react-aria",
+            "comment": "blabla",
+            "commit": "618d957a84593a0275dcbc8482d29457f3bce3cf"
+          },
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/react-aria",
+            "commit": "618d957a84593a0275dcbc8482d29457f3bce3cf",
+            "comment": "Bump @fluentui/react-aria to v9.0.0-alpha.32"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Sep 2021 07:38:39 GMT",
       "tag": "@fluentui/react-aria_v9.0.0-alpha.32",
       "version": "9.0.0-alpha.32",

@@ -1,8 +1,54 @@
 # Change Log - @fluentui/react-components
 
-This log was last generated on Thu, 16 Sep 2021 07:38:38 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Sep 2021 18:38:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.0.0-alpha.109
+
+Thu, 16 Sep 2021 18:38:03 GMT
+
+### Changes
+
+- `@fluentui/react-accordion`
+  - Bump @fluentui/react-accordion to v9.0.0-alpha.77 (lingfangao@hotmail.com)
+- `@fluentui/react-avatar`
+  - Bump @fluentui/react-avatar to v9.0.0-alpha.81 (lingfangao@hotmail.com)
+- `@fluentui/react-badge`
+  - Bump @fluentui/react-badge to v9.0.0-alpha.81 (lingfangao@hotmail.com)
+- `@fluentui/react-button`
+  - Bump @fluentui/react-button to v9.0.0-alpha.87 (lingfangao@hotmail.com)
+- `@fluentui/react-card`
+  - Bump @fluentui/react-card to v9.0.0-alpha.3 (lingfangao@hotmail.com)
+- `@fluentui/react-checkbox`
+  - Bump @fluentui/react-checkbox to v9.0.0-alpha.36 (lingfangao@hotmail.com)
+- `@fluentui/react-components`
+  - Bump @fluentui/react-components to v9.0.0-alpha.109 (lingfangao@hotmail.com)
+- `@fluentui/react-conformance-make-styles`
+  - refactor(react-conformance-make-styles): react-conformance as dev deps (lingfangao@hotmail.com)
+  - Bump @fluentui/react-conformance-make-styles to v9.0.0-alpha.11 (lingfangao@hotmail.com)
+- `@fluentui/react-divider`
+  - Bump @fluentui/react-divider to v9.0.0-alpha.68 (lingfangao@hotmail.com)
+- `@fluentui/react-image`
+  - Bump @fluentui/react-image to v9.0.0-alpha.79 (lingfangao@hotmail.com)
+- `@fluentui/react-label`
+  - Bump @fluentui/react-label to v9.0.0-alpha.40 (lingfangao@hotmail.com)
+- `@fluentui/react-link`
+  - Bump @fluentui/react-link to v9.0.0-alpha.82 (lingfangao@hotmail.com)
+- `@fluentui/react-menu`
+  - Bump @fluentui/react-menu to v9.0.0-alpha.78 (lingfangao@hotmail.com)
+- `@fluentui/react-popover`
+  - Bump @fluentui/react-popover to v9.0.0-alpha.44 (lingfangao@hotmail.com)
+- `@fluentui/react-provider`
+  - Bump @fluentui/react-provider to v9.0.0-alpha.78 (lingfangao@hotmail.com)
+- `@fluentui/react-slider`
+  - Bump @fluentui/react-slider to v9.0.0-alpha.6 (lingfangao@hotmail.com)
+- `@fluentui/react-switch`
+  - Bump @fluentui/react-switch to v9.0.0-alpha.5 (lingfangao@hotmail.com)
+- `@fluentui/react-text`
+  - Bump @fluentui/react-text to v9.0.0-alpha.16 (lingfangao@hotmail.com)
+- `@fluentui/react-tooltip`
+  - Bump @fluentui/react-tooltip to v9.0.0-alpha.83 (lingfangao@hotmail.com)
 
 ## [9.0.0-alpha.108](https://github.com/microsoft/fluentui/tree/@fluentui/react-components_v9.0.0-alpha.108)
 

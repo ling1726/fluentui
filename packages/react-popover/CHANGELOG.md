@@ -1,8 +1,16 @@
 # Change Log - @fluentui/react-popover
 
-This log was last generated on Thu, 16 Sep 2021 07:38:39 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Sep 2021 18:38:03 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.0.0-alpha.44
+
+Thu, 16 Sep 2021 18:38:03 GMT
+
+### Changes
+
+- Bump @fluentui/react-popover to v9.0.0-alpha.44 (lingfangao@hotmail.com)
 
 ## [9.0.0-alpha.43](https://github.com/microsoft/fluentui/tree/@fluentui/react-popover_v9.0.0-alpha.43)
 

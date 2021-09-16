@@ -2,6 +2,21 @@
   "name": "@fluentui/react-theme",
   "entries": [
     {
+      "date": "Thu, 16 Sep 2021 18:38:03 GMT",
+      "tag": "@fluentui/react-theme_v9.0.0-alpha.22",
+      "version": "9.0.0-alpha.22",
+      "comments": {
+        "none": [
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/react-theme",
+            "comment": "blabla",
+            "commit": "618d957a84593a0275dcbc8482d29457f3bce3cf"
+          }
+        ]
+      }
+    },
+    {
       "date": "Tue, 24 Aug 2021 07:34:48 GMT",
       "tag": "@fluentui/react-theme_v9.0.0-alpha.22",
       "version": "9.0.0-alpha.22",

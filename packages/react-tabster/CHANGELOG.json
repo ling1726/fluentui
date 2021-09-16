@@ -2,6 +2,27 @@
   "name": "@fluentui/react-tabster",
   "entries": [
     {
+      "date": "Thu, 16 Sep 2021 18:38:03 GMT",
+      "tag": "@fluentui/react-tabster_v9.0.0-alpha.60",
+      "version": "9.0.0-alpha.60",
+      "comments": {
+        "none": [
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/react-tabster",
+            "comment": "blabla",
+            "commit": "618d957a84593a0275dcbc8482d29457f3bce3cf"
+          },
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/react-tabster",
+            "commit": "618d957a84593a0275dcbc8482d29457f3bce3cf",
+            "comment": "Bump @fluentui/react-tabster to v9.0.0-alpha.60"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Sep 2021 07:38:39 GMT",
       "tag": "@fluentui/react-tabster_v9.0.0-alpha.60",
       "version": "9.0.0-alpha.60",
