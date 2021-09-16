@@ -27,7 +27,7 @@ export const config: BeachballConfig = {
   tag: 'latest',
   generateChangelog: true,
   registry:
-    'https://uifabric.pkgs.visualstudio.com/4ed167b9-ac3a-405b-b967-443af8db8961/_packaging/ling-test/npm/registry/',
+    'https://uifabric.pkgs.visualstudio.com/4ed167b9-ac3a-405b-b967-443af8db8961/_packaging/ling-test1/npm/registry/',
   // @ts-ignore
   scope: process.env.RELEASE_VNEXT ? fluentConvergedPackagePaths : defaultScope,
   hooks: {
