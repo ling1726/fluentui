@@ -7,11 +7,11 @@ const path = require('path');
 const allPackageInfo = getAllPackageInfo();
 const fluentConvergedPackagePaths = Object.values(allPackageInfo)
   .map(packageInfo => {
-    if (packageInfo.packageJson.version.startsWith('9.') && !packageInfo.packageJson.private) {
+    if (packageInfo.packageJson.version.startsWith('9.')) {
       return packageInfo.packagePath;
     }
 
-    const hardCoded = ['@fluentui/perf-test', '@fluentui/vr-test', '@fluentui/react-storybook'];
+    const hardCoded = ['@fluentui/perf-test', '@fluentui/vr-test'];
 
     if (hardCoded.includes(packageInfo.packageJson.name)) {
       return packageInfo.packagePath;
