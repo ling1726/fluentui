@@ -383,6 +383,52 @@
         "dependencies": [
           "chalk"
         ]
+      },
+      {
+        "dependencies": [
+          "@fluentui/eslint-plugin",
+          "@fluentui/test-utilities",
+          "@fluentui/react-conformance"
+        ],
+        "packages": [
+          "@fluentui/babel-make-styles",
+          "@fluentui/jest-serializer-make-styles",
+          "@fluentui/keyboard-keys",
+          "@fluentui/make-styles",
+          "@fluentui/make-styles-webpack-loader",
+          "@fluentui/react-accordion",
+          "@fluentui/react-aria",
+          "@fluentui/react-avatar",
+          "@fluentui/react-badge",
+          "@fluentui/react-button",
+          "@fluentui/react-card",
+          "@fluentui/react-checkbox",
+          "@fluentui/react-components",
+          "@fluentui/react-conformance-make-styles",
+          "@fluentui/react-context-selector",
+          "@fluentui/react-divider",
+          "@fluentui/react-image",
+          "@fluentui/react-input",
+          "@fluentui/react-label",
+          "@fluentui/react-link",
+          "@fluentui/react-make-styles",
+          "@fluentui/react-menu",
+          "@fluentui/react-popover",
+          "@fluentui/react-portal",
+          "@fluentui/react-positioning",
+          "@fluentui/react-provider",
+          "@fluentui/react-shared-contexts",
+          "@fluentui/react-slider",
+          "@fluentui/react-storybook",
+          "@fluentui/react-storybook-addon",
+          "@fluentui/react-switch",
+          "@fluentui/react-tabster",
+          "@fluentui/react-text",
+          "@fluentui/react-theme",
+          "@fluentui/react-tooltip",
+          "@fluentui/react-utilities",
+          "fluent-ui-vnext"
+        ]
       }
     ]
   },
