@@ -2,6 +2,21 @@
   "name": "@fluentui/react-provider",
   "entries": [
     {
+      "date": "Thu, 16 Sep 2021 19:26:33 GMT",
+      "tag": "@fluentui/react-provider_v9.0.0-alpha.79",
+      "version": "9.0.0-alpha.79",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/react-provider",
+            "commit": "052d2c02ab0b2cf00ab14540adeb708acfd054be",
+            "comment": "Bump @fluentui/react-provider to v9.0.0-alpha.79"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Sep 2021 18:38:03 GMT",
       "tag": "@fluentui/react-provider_v9.0.0-alpha.78",
       "version": "9.0.0-alpha.78",

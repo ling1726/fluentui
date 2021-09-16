@@ -1,8 +1,16 @@
 # Change Log - @fluentui/react-text
 
-This log was last generated on Thu, 16 Sep 2021 18:38:03 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Sep 2021 19:26:33 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.0.0-alpha.17
+
+Thu, 16 Sep 2021 19:26:33 GMT
+
+### Changes
+
+- Bump @fluentui/react-text to v9.0.0-alpha.17 (lingfangao@hotmail.com)
 
 ## 9.0.0-alpha.16
 

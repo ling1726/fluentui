@@ -2,6 +2,21 @@
   "name": "@fluentui/react-image",
   "entries": [
     {
+      "date": "Thu, 16 Sep 2021 19:26:33 GMT",
+      "tag": "@fluentui/react-image_v9.0.0-alpha.80",
+      "version": "9.0.0-alpha.80",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/react-image",
+            "commit": "052d2c02ab0b2cf00ab14540adeb708acfd054be",
+            "comment": "Bump @fluentui/react-image to v9.0.0-alpha.80"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Sep 2021 18:38:03 GMT",
       "tag": "@fluentui/react-image_v9.0.0-alpha.79",
       "version": "9.0.0-alpha.79",
