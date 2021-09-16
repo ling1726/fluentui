@@ -7,4 +7,6 @@ const makeStylesTests: TestObject = {
 
 export default makeStylesTests;
 
+export type ReactConformanceMakeStyles = '1';
+
 export type { OverridesWinTestOptions } from './overridesWin';
