@@ -55,7 +55,7 @@ steps:
     displayName: yarn lint
 
   - script: |
-      npm run publish:beachball -- -b experiment/release-private -n $(npmToken) --access public -y
+      npm run publish:beachball -- -b origin/experiment/release-private -n $(npmToken) --access public -y
       git reset --hard origin/master
     env:
       GITHUB_PAT: $(githubPAT)
