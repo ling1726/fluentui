@@ -2,6 +2,21 @@
   "name": "@fluentui/react-link",
   "entries": [
     {
+      "date": "Thu, 16 Sep 2021 20:14:23 GMT",
+      "tag": "@fluentui/react-link_v9.0.0-alpha.84",
+      "version": "9.0.0-alpha.84",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/react-link",
+            "commit": "e00fd6e5dfa83232eb671175be710644254639a5",
+            "comment": "Bump @fluentui/react-link to v9.0.0-alpha.84"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Sep 2021 19:26:33 GMT",
       "tag": "@fluentui/react-link_v9.0.0-alpha.83",
       "version": "9.0.0-alpha.83",

@@ -1,8 +1,16 @@
 # Change Log - @fluentui/react-image
 
-This log was last generated on Thu, 16 Sep 2021 19:26:33 GMT and should not be manually modified.
+This log was last generated on Thu, 16 Sep 2021 20:14:23 GMT and should not be manually modified.
 
 <!-- Start content -->
+
+## 9.0.0-alpha.81
+
+Thu, 16 Sep 2021 20:14:23 GMT
+
+### Changes
+
+- Bump @fluentui/react-image to v9.0.0-alpha.81 (lingfangao@hotmail.com)
 
 ## 9.0.0-alpha.80
 

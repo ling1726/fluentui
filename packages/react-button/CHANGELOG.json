@@ -2,6 +2,21 @@
   "name": "@fluentui/react-button",
   "entries": [
     {
+      "date": "Thu, 16 Sep 2021 20:14:23 GMT",
+      "tag": "@fluentui/react-button_v9.0.0-alpha.89",
+      "version": "9.0.0-alpha.89",
+      "comments": {
+        "prerelease": [
+          {
+            "author": "lingfangao@hotmail.com",
+            "package": "@fluentui/react-button",
+            "commit": "e00fd6e5dfa83232eb671175be710644254639a5",
+            "comment": "Bump @fluentui/react-button to v9.0.0-alpha.89"
+          }
+        ]
+      }
+    },
+    {
       "date": "Thu, 16 Sep 2021 19:26:33 GMT",
       "tag": "@fluentui/react-button_v9.0.0-alpha.88",
       "version": "9.0.0-alpha.88",
