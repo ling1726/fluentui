@@ -11,7 +11,7 @@ const fluentConvergedPackagePaths = Object.values(allPackageInfo)
       return packageInfo.packagePath;
     }
 
-    const hardCoded = ['@fluentui/perf-test', '@fluentui/vr-test'];
+    const hardCoded = ['perf-test', 'vr-tests'];
 
     if (hardCoded.includes(packageInfo.packageJson.name)) {
       return packageInfo.packagePath;
