@@ -2,6 +2,7 @@ import { ButtonVariables } from '../../../teams/components/Button/buttonVariable
 import { systemColors } from '../../systemColors';
 
 export const buttonVariables = (siteVars: any): Partial<ButtonVariables> => ({
+  color: systemColors.buttonText,
   colorHover: systemColors.highlightText,
   colorActive: systemColors.canvas,
   colorDisabled: systemColors.grayText,
@@ -30,6 +31,7 @@ export const buttonVariables = (siteVars: any): Partial<ButtonVariables> => ({
   tintedBackgroundColorHover: systemColors.highlight,
   tintedBorderColorHover: systemColors.highlight,
 
+  textColor: systemColors.buttonText,
   textColorHover: systemColors.highlight,
   textPrimaryColor: systemColors.buttonText,
   textPrimaryColorHover: systemColors.highlight,
