@@ -28,11 +28,9 @@ const positions: NonNullable<PopoverProps['positioning']>[] = [
   'after-top',
 ];
 
-const stories = storiesOf('Popover Converged - positioning', module)
+const stories = storiesOf('Popover  - positioning', module)
   .addDecorator(story => <Screener>{story()}</Screener>)
-  .addDecorator(story => (
-    <div style={{ position: 'fixed', top: '50%', left: '50%' }}>{story()}</div>
-  ));
+  .addDecorator(story => <div style={{ position: 'fixed', top: '50%', left: '50%' }}>{story()}</div>);
 
 positions.forEach(position => {
   stories.addStory(

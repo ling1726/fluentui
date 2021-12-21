@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Screener, { Steps } from 'screener-storybook/src/screener';
 import { storiesOf } from '@storybook/react';
-import { RangedSlider } from '@fluentui/react-slider';
+import { Slider } from '@fluentui/react-slider';
 
 const LabelComponent = () => <div style={{ width: '30px', height: '30px', background: 'green' }} />;
 
@@ -15,7 +15,7 @@ const MarkComponent = () => (
   />
 );
 
-storiesOf('RangedSlider Converged', module)
+storiesOf('Slider ', module)
   .addDecorator(story => (
     <Screener
       steps={new Steps()
@@ -30,46 +30,57 @@ storiesOf('RangedSlider Converged', module)
       {story()}
     </Screener>
   ))
-  .addStory('Root', () => <RangedSlider className="test-class" />, {
+  .addStory('Root', () => <Slider className="test-class" defaultValue={30} />, {
     includeRtl: true,
     includeHighContrast: true,
     includeDarkMode: true,
   })
-  .addStory('Vertical', () => <RangedSlider className="test-class" vertical />, {
+  .addStory('Vertical', () => <Slider className="test-class" vertical defaultValue={30} />, {
+    includeRtl: true,
+  })
+  .addStory('Disabled', () => <Slider className="test-class" disabled defaultValue={30} />, {
+    includeHighContrast: true,
+    includeDarkMode: true,
+  })
+  .addStory('Disabled Vertical', () => <Slider className="test-class" disabled vertical defaultValue={30} />)
+  .addStory('Origin', () => <Slider className="test-class" origin={30} />, { includeRtl: true })
+  .addStory('Origin Vertical', () => <Slider className="test-class" vertical origin={30} />, {
+    includeRtl: true,
+  })
+  .addStory('Origin (min)', () => <Slider className="test-class" min={0} origin={0} />)
+  .addStory('Origin Vertical (min)', () => <Slider className="test-class" min={0} vertical origin={0} />)
+  .addStory('Origin (max)', () => <Slider className="test-class" max={10} origin={10} />)
+  .addStory('Origin Vertical (max)', () => <Slider className="test-class" min={10} vertical origin={10} />)
+  .addStory('Marks', () => <Slider className="test-class" max={10} defaultValue={3} marks />, {
+    includeRtl: true,
+    includeHighContrast: true,
+    includeDarkMode: true,
+  })
+  .addStory('Marks Vertical', () => <Slider className="test-class" vertical max={10} defaultValue={3} marks />, {
     includeRtl: true,
   })
   .addStory(
-    'Disabled',
-    () => <RangedSlider className="test-class" defaultValue={[15, 58]} disabled />,
-    { includeHighContrast: true, includeDarkMode: true },
-  )
-  .addStory('Disabled Vertical', () => (
-    <RangedSlider className="test-class" defaultValue={[15, 58]} disabled vertical />
-  ))
-  .addStory(
-    'Marks',
-    () => <RangedSlider className="test-class" max={10} defaultValue={[1, 8]} marks />,
-    {
-      includeRtl: true,
-      includeHighContrast: true,
-      includeDarkMode: true,
-    },
-  )
-  .addStory(
-    'Marks Vertical',
-    () => <RangedSlider className="test-class" vertical max={10} defaultValue={[1, 8]} marks />,
+    'Marks Custom Value',
+    () => <Slider className="test-class" max={10} defaultValue={3} marks={[0, 1, 5, 8, 10]} />,
     {
       includeRtl: true,
     },
   )
   .addStory(
-    'Marks Custom',
+    'Marks Custom Value Vertical',
+    () => <Slider className="test-class" vertical max={10} defaultValue={3} marks={[0, 1, 5, 8, 10]} />,
+    {
+      includeRtl: true,
+    },
+  )
+  .addStory(
+    'Marks Label Value',
     () => (
-      <RangedSlider
+      <Slider
         className="test-class"
         max={10}
-        defaultValue={[1, 8]}
-        marks={[0, 1, 5, 8, 10]}
+        defaultValue={3}
+        marks={[0, { value: 1, label: 'hello world' }, { value: 2, label: 'hello' }, 8, { value: 10, label: '10' }]}
       />
     ),
     {
@@ -77,27 +88,36 @@ storiesOf('RangedSlider Converged', module)
     },
   )
   .addStory(
-    'Marks Custom Vertical',
+    'Marks Label Vertical',
     () => (
-      <RangedSlider
+      <Slider
         className="test-class"
         vertical
         max={10}
-        defaultValue={[1, 8]}
-        marks={[0, 1, 5, 8, 10]}
+        defaultValue={3}
+        marks={[0, { value: 1, label: 'hello world' }, { value: 2, label: 'hello' }, 8, { value: 10, label: '10' }]}
       />
     ),
     {
       includeRtl: true,
     },
   )
+  .addStory('Marks Label Disabled', () => (
+    <Slider
+      className="test-class"
+      disabled
+      max={10}
+      defaultValue={7}
+      marks={[0, { value: 1, label: 'hello world' }, { value: 2, label: 'hello' }, 8, { value: 10, label: '10' }]}
+    />
+  ))
   .addStory(
     'Marks Custom Label Value',
     () => (
-      <RangedSlider
+      <Slider
         className="test-class"
         max={10}
-        defaultValue={[3, 9]}
+        defaultValue={6}
         marks={[
           1,
           {
@@ -116,11 +136,11 @@ storiesOf('RangedSlider Converged', module)
   .addStory(
     'Marks Custom Label Vertical',
     () => (
-      <RangedSlider
+      <Slider
         className="test-class"
         vertical
         max={10}
-        defaultValue={[3, 9]}
+        defaultValue={6}
         marks={[
           1,
           {
@@ -139,10 +159,10 @@ storiesOf('RangedSlider Converged', module)
   .addStory(
     'Custom Marks',
     () => (
-      <RangedSlider
+      <Slider
         className="test-class"
         max={10}
-        defaultValue={[0, 10]}
+        defaultValue={6}
         marks={[
           1,
           {
@@ -162,11 +182,11 @@ storiesOf('RangedSlider Converged', module)
   .addStory(
     'Custom Marks Vertical',
     () => (
-      <RangedSlider
+      <Slider
         className="test-class"
         vertical
         max={10}
-        defaultValue={[0, 10]}
+        defaultValue={6}
         marks={[
           1,
           {

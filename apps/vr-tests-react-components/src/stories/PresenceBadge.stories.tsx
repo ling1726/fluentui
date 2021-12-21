@@ -11,7 +11,7 @@ const statuses: PresenceBadgeProps['status'][] = [
   'outOfOffice',
 ];
 
-storiesOf('PresenceBadge Converged - status', module).addStory(
+storiesOf('PresenceBadge  - status', module).addStory(
   'default',
   () => (
     <div style={{ display: 'flex', gap: 10 }}>
@@ -23,7 +23,7 @@ storiesOf('PresenceBadge Converged - status', module).addStory(
   { includeRtl: true },
 );
 
-storiesOf('PresenceBadge Converged - OOF status', module).addStory(
+storiesOf('PresenceBadge  - OOF status', module).addStory(
   'default',
   () => (
     <div style={{ display: 'flex', gap: 10 }}>
@@ -35,20 +35,15 @@ storiesOf('PresenceBadge Converged - OOF status', module).addStory(
   { includeRtl: true },
 );
 
-storiesOf('PresenceBadge Converged - sizes', module).addStory(
+storiesOf('PresenceBadge  - sizes', module).addStory(
   'default',
   () => (
     <div style={{ display: 'flex', gap: 10 }}>
-      {([
-        'tiny',
-        'extra-small',
-        'small',
-        'medium',
-        'large',
-        'extra-large',
-      ] as PresenceBadgeProps['size'][]).map(size => (
-        <PresenceBadge status="available" key={size} size={size} />
-      ))}
+      {(['tiny', 'extra-small', 'small', 'medium', 'large', 'extra-large'] as PresenceBadgeProps['size'][]).map(
+        size => (
+          <PresenceBadge status="available" key={size} size={size} />
+        ),
+      )}
     </div>
   ),
   { includeRtl: true },

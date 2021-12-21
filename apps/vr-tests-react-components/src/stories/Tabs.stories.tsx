@@ -3,7 +3,7 @@ import * as React from 'react';
 import Screener from 'screener-storybook/src/screener';
 import { TabList, Tab } from '@fluentui/react-tabs';
 
-storiesOf('TabList and Tab Converged', module)
+storiesOf('TabList and Tab ', module)
   .addDecorator(story => (
     <Screener
       steps={new Screener.Steps()

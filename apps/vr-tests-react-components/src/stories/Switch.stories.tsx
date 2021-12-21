@@ -3,7 +3,7 @@ import Screener, { Steps } from 'screener-storybook/src/screener';
 import { storiesOf } from '@storybook/react';
 import { Switch } from '@fluentui/react-switch';
 
-storiesOf('Switch Converged', module)
+storiesOf('Switch', module)
   .addDecorator(story => (
     <Screener
       steps={new Steps()
@@ -28,13 +28,11 @@ storiesOf('Switch Converged', module)
     includeHighContrast: true,
     includeDarkMode: true,
   })
-  .addStory(
-    'Disabled (unchecked)',
-    () => <Switch className="test-class" disabled defaultChecked={false} />,
-    { includeHighContrast: true, includeDarkMode: true },
-  )
-  .addStory(
-    'Disabled (checked)',
-    () => <Switch className="test-class" disabled defaultChecked={true} />,
-    { includeHighContrast: true, includeDarkMode: true },
-  );
+  .addStory('Disabled (unchecked)', () => <Switch className="test-class" disabled defaultChecked={false} />, {
+    includeHighContrast: true,
+    includeDarkMode: true,
+  })
+  .addStory('Disabled (checked)', () => <Switch className="test-class" disabled defaultChecked={true} />, {
+    includeHighContrast: true,
+    includeDarkMode: true,
+  });

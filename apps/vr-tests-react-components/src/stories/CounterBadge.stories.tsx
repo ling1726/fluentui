@@ -2,7 +2,7 @@ import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import { CounterBadge } from '@fluentui/react-badge';
 
-storiesOf('CounterBadge Converged - colors', module).addStory(
+storiesOf('CounterBadge  - colors', module).addStory(
   'default',
   () => (
     <div style={{ display: 'flex', gap: 10 }}>

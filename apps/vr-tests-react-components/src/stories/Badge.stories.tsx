@@ -39,9 +39,7 @@ const useStyles = makeStyles({
   }),
 });
 
-const BadgeAppearanceTemplate: React.FC<{ appearance: BadgeCommons['appearance'] }> = ({
-  appearance,
-}) => {
+const BadgeAppearanceTemplate: React.FC<{ appearance: BadgeCommons['appearance'] }> = ({ appearance }) => {
   const styles = useStyles();
 
   const badges = new Map<BadgeCommons['color'], JSX.Element[]>();
@@ -60,36 +58,20 @@ const BadgeAppearanceTemplate: React.FC<{ appearance: BadgeCommons['appearance']
         1
       </Badge>
     );
-    const circularWithIcon = (
-      <Badge color={color} appearance={appearance} icon={<Circle12Regular />} />
-    );
-    const roundedWithIcon = (
-      <Badge color={color} appearance={appearance} shape="rounded" icon={<Circle12Regular />} />
-    );
+    const circularWithIcon = <Badge color={color} appearance={appearance} icon={<Circle12Regular />} />;
+    const roundedWithIcon = <Badge color={color} appearance={appearance} shape="rounded" icon={<Circle12Regular />} />;
     const roundedWithText = (
       <Badge color={color} appearance={appearance} shape="rounded">
         {appearance.toUpperCase()}
       </Badge>
     );
     const roundedWithTextAndIconBefore = (
-      <Badge
-        color={color}
-        appearance={appearance}
-        shape="rounded"
-        icon={<Circle12Regular />}
-        iconPosition="before"
-      >
+      <Badge color={color} appearance={appearance} shape="rounded" icon={<Circle12Regular />} iconPosition="before">
         {appearance.toUpperCase()}
       </Badge>
     );
     const roundedWithTextAndIconAfter = (
-      <Badge
-        color={color}
-        appearance={appearance}
-        shape="rounded"
-        icon={<Circle12Regular />}
-        iconPosition="after"
-      >
+      <Badge color={color} appearance={appearance} shape="rounded" icon={<Circle12Regular />} iconPosition="after">
         {appearance.toUpperCase()}
       </Badge>
     );
@@ -126,28 +108,21 @@ const BadgeAppearanceTemplate: React.FC<{ appearance: BadgeCommons['appearance']
   );
 };
 
-const appearanceStories = storiesOf('Badge Converged', module);
+const appearanceStories = storiesOf('Badge ', module);
 
 badgeAppearances.forEach(appearance => {
-  appearanceStories.addStory(
-    appearance,
-    () => <BadgeAppearanceTemplate appearance={appearance} />,
-    { includeRtl: true, includeHighContrast: true, includeDarkMode: true },
-  );
+  appearanceStories.addStory(appearance, () => <BadgeAppearanceTemplate appearance={appearance} />, {
+    includeRtl: true,
+    includeHighContrast: true,
+    includeDarkMode: true,
+  });
 });
 
-storiesOf('Badge Converged - sizes', module).addStory(
+storiesOf('Badge  - sizes', module).addStory(
   'default',
   () => (
     <div style={{ display: 'flex', gap: 10 }}>
-      {([
-        'tiny',
-        'extra-small',
-        'small',
-        'medium',
-        'large',
-        'extra-large',
-      ] as BadgeCommons['size'][]).map(size => (
+      {(['tiny', 'extra-small', 'small', 'medium', 'large', 'extra-large'] as BadgeCommons['size'][]).map(size => (
         <Badge key={size} size={size} />
       ))}
     </div>

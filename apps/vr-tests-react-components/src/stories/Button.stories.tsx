@@ -3,7 +3,7 @@ import * as React from 'react';
 import Screener from 'screener-storybook/src/screener';
 import { Button, CompoundButton, ToggleButton, MenuButton } from '@fluentui/react-button';
 
-storiesOf('Button Converged', module)
+storiesOf('Button ', module)
   .addDecorator(story => (
     <Screener
       steps={new Screener.Steps()
@@ -107,7 +107,7 @@ storiesOf('Button Converged', module)
     includeRtl: true,
   });
 
-storiesOf('Button Block Converged', module)
+storiesOf('Button Block ', module)
   .addDecorator(story => (
     <Screener
       steps={new Screener.Steps()
@@ -164,7 +164,7 @@ storiesOf('Button Block Converged', module)
     </Button>
   ));
 
-storiesOf('CompoundButton Converged', module)
+storiesOf('CompoundButton ', module)
   .addDecorator(story => (
     <Screener
       steps={new Screener.Steps()
@@ -181,9 +181,7 @@ storiesOf('CompoundButton Converged', module)
   ))
   .addStory(
     'Default',
-    () => (
-      <CompoundButton secondaryContent="This is some secondary text">Hello, world</CompoundButton>
-    ),
+    () => <CompoundButton secondaryContent="This is some secondary text">Hello, world</CompoundButton>,
     { includeRtl: true },
   )
   .addStory('Circular', () => (
@@ -232,11 +230,7 @@ storiesOf('CompoundButton Converged', module)
     </CompoundButton>
   ))
   .addStory('Transparent Disabled', () => (
-    <CompoundButton
-      secondaryContent="This is some secondary text"
-      appearance="transparent"
-      disabled
-    >
+    <CompoundButton secondaryContent="This is some secondary text" appearance="transparent" disabled>
       Hello, world
     </CompoundButton>
   ))
@@ -273,7 +267,7 @@ storiesOf('CompoundButton Converged', module)
     includeRtl: true,
   });
 
-storiesOf('CompoundButton Block Converged', module)
+storiesOf('CompoundButton Block ', module)
   .addDecorator(story => (
     <Screener
       steps={new Screener.Steps()
@@ -338,7 +332,7 @@ storiesOf('CompoundButton Block Converged', module)
     </CompoundButton>
   ));
 
-storiesOf('ToggleButton Converged', module)
+storiesOf('ToggleButton ', module)
   .addDecorator(story => (
     <Screener
       steps={new Screener.Steps()
@@ -417,7 +411,7 @@ storiesOf('ToggleButton Converged', module)
     </ToggleButton>
   ));
 
-storiesOf('ToggleButton Block Converged', module)
+storiesOf('ToggleButton Block ', module)
   .addDecorator(story => (
     <Screener
       steps={new Screener.Steps()
@@ -494,7 +488,7 @@ storiesOf('ToggleButton Block Converged', module)
     </ToggleButton>
   ));
 
-storiesOf('MenuButton Converged', module)
+storiesOf('MenuButton ', module)
   .addDecorator(story => (
     <Screener
       steps={new Screener.Steps()
@@ -550,7 +544,7 @@ storiesOf('MenuButton Converged', module)
   .addStory('Icon only', () => <MenuButton icon="X" />)
   .addStory('Circular and icon only', () => <MenuButton shape="circular" icon="X" />);
 
-storiesOf('MenuButton Block Converged', module)
+storiesOf('MenuButton Block ', module)
   .addDecorator(story => (
     <Screener
       steps={new Screener.Steps()

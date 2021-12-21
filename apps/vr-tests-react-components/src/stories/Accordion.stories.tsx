@@ -1,15 +1,10 @@
 import { storiesOf } from '@storybook/react';
 import * as React from 'react';
 import Screener from 'screener-storybook/src/screener';
-import {
-  Accordion,
-  AccordionItem,
-  AccordionHeader,
-  AccordionPanel,
-} from '@fluentui/react-accordion';
+import { Accordion, AccordionItem, AccordionHeader, AccordionPanel } from '@fluentui/react-accordion';
 import { CircleRegular } from '@fluentui/react-icons';
 
-storiesOf('Accordion Converged', module)
+storiesOf('Accordion', module)
   .addDecorator(story => (
     <Screener
       steps={new Screener.Steps()
@@ -43,7 +38,7 @@ storiesOf('Accordion Converged', module)
     { includeRtl: true, includeHighContrast: true, includeDarkMode: true },
   );
 
-storiesOf('Accordion Converged', module)
+storiesOf('Accordion', module)
   .addDecorator(story => (
     <Screener steps={new Screener.Steps().snapshot('normal', { cropTo: '.testWrapper' }).end()}>
       <div className="testWrapper" style={{ width: '300px' }}>

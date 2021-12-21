@@ -15,11 +15,9 @@ import {
 } from '@fluentui/react-menu';
 import { Cut20Regular, Edit20Regular, ClipboardPaste20Regular } from '@fluentui/react-icons';
 
-storiesOf('Menu Converged - basic', module)
+storiesOf('Menu  - basic', module)
   .addDecorator(story => (
-    <Screener
-      steps={new Screener.Steps().hover('[role="menuitem"]').snapshot('hover menuitem').end()}
-    >
+    <Screener steps={new Screener.Steps().hover('[role="menuitem"]').snapshot('hover menuitem').end()}>
       {story()}
     </Screener>
   ))
@@ -43,11 +41,9 @@ storiesOf('Menu Converged - basic', module)
     { includeRtl: true },
   );
 
-storiesOf('Menu Converged - secondary content', module)
+storiesOf('Menu  - secondary content', module)
   .addDecorator(story => (
-    <Screener
-      steps={new Screener.Steps().hover('[role="menuitem"]').snapshot('hover menuitem').end()}
-    >
+    <Screener steps={new Screener.Steps().hover('[role="menuitem"]').snapshot('hover menuitem').end()}>
       {story()}
     </Screener>
   ))
@@ -75,7 +71,7 @@ storiesOf('Menu Converged - secondary content', module)
     { includeRtl: true },
   );
 
-storiesOf('Menu Converged - groups', module)
+storiesOf('Menu  - groups', module)
   .addDecorator(story => <Screener>{story()}</Screener>)
   .addStory(
     'default',
@@ -107,11 +103,9 @@ storiesOf('Menu Converged - groups', module)
     { includeRtl: true, includeHighContrast: true, includeDarkMode: true },
   );
 
-storiesOf('Menu Converged - selection', module)
+storiesOf('Menu  - selection', module)
   .addDecorator(story => (
-    <Screener
-      steps={new Screener.Steps().click('[role="menuitemcheckbox"]').snapshot('selected').end()}
-    >
+    <Screener steps={new Screener.Steps().click('[role="menuitemcheckbox"]').snapshot('selected').end()}>
       {story()}
     </Screener>
   ))
@@ -141,11 +135,9 @@ storiesOf('Menu Converged - selection', module)
     { includeRtl: true, includeHighContrast: true, includeDarkMode: true },
   );
 
-storiesOf('Menu Converged - selection groups', module)
+storiesOf('Menu  - selection groups', module)
   .addDecorator(story => (
-    <Screener
-      steps={new Screener.Steps().click('[role="menuitemcheckbox"]').snapshot('selected').end()}
-    >
+    <Screener steps={new Screener.Steps().click('[role="menuitemcheckbox"]').snapshot('selected').end()}>
       {story()}
     </Screener>
   ))
@@ -191,12 +183,10 @@ storiesOf('Menu Converged - selection groups', module)
     { includeRtl: true },
   );
 
-storiesOf('Menu Converged - nested submenus', module)
+storiesOf('Menu  - nested submenus', module)
   .addDecorator(story => (
     // https://github.com/microsoft/fluentui/issues/19782
-    <Screener steps={new Screener.Steps().click('#nestedTrigger').snapshot('all open').end()}>
-      {story()}
-    </Screener>
+    <Screener steps={new Screener.Steps().click('#nestedTrigger').snapshot('all open').end()}>{story()}</Screener>
   ))
   .addStory(
     'default',

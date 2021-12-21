@@ -158,10 +158,6 @@ jobs:
         displayName: yarn
 
       - script: |
-          yarn build --to @fluentui/make-styles-webpack-loader --verbose --no-cache
-        displayName: build Webpack loader
-
-      - script: |
           yarn workspace vr-tests screener:build
         displayName: build vr-tests storybook
 
@@ -173,3 +169,31 @@ jobs:
           SCREENER_API_KEY: $(screener.key)
 
       - template: .devops/templates/cleanup.yml
+
+  # - job: ScreenerReactComponents
+  #   workspace:
+  #     clean: all
+  #   steps:
+  #     - template: .devops/templates/tools.yml
+
+  #     - task: Bash@3
+  #       inputs:
+  #         filePath: yarn-ci.sh
+  #       displayName: yarn
+
+  #     - script: |
+  #         yarn build --to @fluentui/make-styles-webpack-loader --verbose --no-cache
+  #       displayName: build Webpack loader
+
+  #     - script: |
+  #         yarn workspace vr-tests-react-components screener:build
+  #       displayName: build vr-tests storybook
+
+  #     # Don't use lage here because it eats long output for reasons that are hard to debug
+  #     - script: |
+  #         yarn workspace vr-tests-react-components screener
+  #       displayName: run VR Test
+  #       env:
+  #         SCREENER_API_KEY: $(screener.key)
+
+  #     - template: .devops/templates/cleanup.yml
