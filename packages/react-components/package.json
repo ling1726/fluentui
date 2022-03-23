@@ -11,7 +11,7 @@
     "url": "https://github.com/microsoft/fluentui"
   },
   "storybook": {
-    "url": "https://master--6002298f95a00c00213f4d55.chromatic.com"
+    "url": "https://test--623b685a9d73d2003a84e211.chromatic.com"
   },
   "license": "MIT",
   "scripts": {
