@@ -21,16 +21,24 @@ export const renderVirtualizer_unstable = (state: VirtualizerState) => {
   const bottomPosPx = bottomPos + 'px';
 
   const beforeBuffer = {
+    // Column
     ...(!isReversed && !isHorizontal && { top: topPosPx }),
+    // Column-Reverse
     ...(isReversed && !isHorizontal && { bottom: topPosPx }),
+    // Row-Reverse
     ...(isReversed && isHorizontal && { left: `-${topPosPx}` }),
+    // Row
     ...(!isReversed && isHorizontal && { right: topPosPx }),
   };
 
   const afterBuffer = {
+    // Column-Reverse
     ...(isReversed && !isHorizontal && { top: bottomPosPx }),
+    // Column
     ...(!isReversed && !isHorizontal && { bottom: bottomPosPx }),
+    // Row
     ...(!isReversed && isHorizontal && { left: `-${bottomPosPx}` }),
+    // Row-Reverse
     ...(isReversed && isHorizontal && { right: bottomPosPx }),
   };
 
@@ -41,8 +49,8 @@ export const renderVirtualizer_unstable = (state: VirtualizerState) => {
   };
 
   const beforeContainerStyle = {
-    height: isHorizontal ? '100%' : beforeHeightPx,
-    width: isHorizontal ? beforeHeightPx : '100%',
+    height: isHorizontal ? 'auto' : beforeHeightPx,
+    width: isHorizontal ? beforeHeightPx : 'auto',
   };
 
   const afterStyle = {
@@ -52,8 +60,8 @@ export const renderVirtualizer_unstable = (state: VirtualizerState) => {
   };
 
   const afterContainerStyle = {
-    height: isHorizontal ? '100%' : afterHeightPx,
-    width: isHorizontal ? afterHeightPx : '100%',
+    height: isHorizontal ? 'auto' : afterHeightPx,
+    width: isHorizontal ? afterHeightPx : 'auto',
   };
 
   return (

@@ -11,17 +11,45 @@ export const virtualizerClassNames: SlotClassNames<VirtualizerSlots> = {
 };
 
 const useStyles = makeStyles({
-  before: {
-    display: 'flex',
-  },
-  after: {
-    display: 'flex',
-  },
-  beforeContainer: {
+  beforeHorizontal: {
     position: 'relative',
+    minHeight: '100%',
+    pointerEvents: 'none',
   },
-  afterContainer: {
+  afterHorizontal: {
     position: 'relative',
+    minHeight: '100%',
+    pointerEvents: 'none',
+  },
+  beforeVertical: {
+    position: 'relative',
+    minWidth: '100%',
+    pointerEvents: 'none',
+  },
+  afterVertical: {
+    position: 'relative',
+    minWidth: '100%',
+    pointerEvents: 'none',
+  },
+  beforeContainerHorizontal: {
+    display: 'block',
+    minHeight: '100%',
+    pointerEvents: 'none',
+  },
+  afterContainerHorizontal: {
+    display: 'block',
+    minHeight: '100%',
+    pointerEvents: 'none',
+  },
+  beforeContainerVertical: {
+    display: 'block',
+    minWidth: '100%',
+    pointerEvents: 'none',
+  },
+  afterContainerVertical: {
+    display: 'block',
+    minWidth: '100%',
+    pointerEvents: 'none',
   },
 });
 
@@ -30,27 +58,36 @@ const useStyles = makeStyles({
  */
 export const useVirtualizerStyles_unstable = (state: VirtualizerState): VirtualizerState => {
   const styles = useStyles();
+  const { isHorizontal } = state;
 
   if (state.before) {
-    state.before.className = mergeClasses(virtualizerClassName, styles.before, state.before.className);
+    state.before.className = mergeClasses(
+      // virtualizerClassName,
+      isHorizontal ? styles.beforeHorizontal : styles.beforeVertical,
+      state.before.className,
+    );
   }
 
   if (state.after) {
-    state.after.className = mergeClasses(virtualizerClassName, styles.after, state.after.className);
+    state.after.className = mergeClasses(
+      // virtualizerClassName,
+      isHorizontal ? styles.afterHorizontal : styles.afterVertical,
+      state.after.className,
+    );
   }
 
   if (state.beforeContainer) {
     state.beforeContainer.className = mergeClasses(
-      virtualizerClassName,
-      styles.beforeContainer,
+      // virtualizerClassName,
+      isHorizontal ? styles.beforeContainerHorizontal : styles.beforeContainerVertical,
       state.beforeContainer.className,
     );
   }
 
   if (state.afterContainer) {
     state.afterContainer.className = mergeClasses(
-      virtualizerClassName,
-      styles.afterContainer,
+      // virtualizerClassName,
+      isHorizontal ? styles.afterContainerHorizontal : styles.afterContainerVertical,
       state.afterContainer.className,
     );
   }
