@@ -16,13 +16,14 @@ import {
   Table,
   TableHeader,
   TableHeaderCell,
-  useTable,
+  useTableFeatures,
   ColumnDefinition,
   ColumnId,
-  useSort,
+  UseTableSort,
   TableCellLayout,
   createColumn,
   Virtualizer,
+  useTableSort,
 } from '@fluentui/react-components/unstable';
 
 type FileCell = {
@@ -148,12 +149,12 @@ export const Virtualized = () => {
   const {
     getRows,
     sort: { getSortDirection, toggleColumnSort, sort },
-  } = useTable(
+  } = useTableFeatures(
     {
       columns,
       items: fullItemList,
     },
-    [useSort({ defaultSortState: { sortColumn: 'file', sortDirection: 'ascending' } })],
+    [useTableSort({ defaultSortState: { sortColumn: 'file', sortDirection: 'ascending' } })],
   );
 
   const headerSortProps = (columnId: ColumnId) => ({
@@ -164,25 +165,6 @@ export const Virtualized = () => {
   });
 
   const rows = sort(getRows());
-
-  /* Use this for now to test vertical/horizontal/reversed basic layout */
-  // return (
-  //   <div
-  //     style={{
-  //       display: 'flex',
-  //       flexDirection: 'column',
-  //       overflowAnchor: 'none',
-  //       overflow: 'auto',
-  //       width: '500px',
-  //     }}
-  //   >
-  //     <Virtualizer isReversed flow={VirtualizerFlow.Vertical} virtualizerLength={100} itemSize={100}>
-  //       {fullItemList.map((item, index) => (
-  //         <div style={{ display: 'flex', minHeight: '100px', width: '100%' }}>{item.file.label}</div>
-  //       ))}
-  //     </Virtualizer>
-  //   </div>
-  // );
 
   return (
     <Table sortable>
@@ -195,16 +177,9 @@ export const Virtualized = () => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <Virtualizer
-          virtualizerLength={100}
-          itemSize={44}
-          sizeOfChild={(node, index) => {
-            // An example of simple dynamic sizing
-            return index % 2 === 0 ? 88 : 44;
-          }}
-        >
+        <Virtualizer virtualizerLength={100} itemSize={44}>
           {rows.map(({ item }, index) => (
-            <TableRow key={item.file.label} style={{ height: index % 2 === 0 ? '88px' : '44px' }}>
+            <TableRow key={item.file.label}>
               <TableCell>
                 <TableCellLayout media={item.file.icon}>{item.file.label}</TableCellLayout>
               </TableCell>
