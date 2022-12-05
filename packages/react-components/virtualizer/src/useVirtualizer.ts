@@ -362,7 +362,7 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
   // Ensure we have run through and updated the whole size list array at least once.
   initializeSizeArray();
 
-  const isFullyInitialized = hasInitialized.current && virtualizerStartIndex > 0;
+  const isFullyInitialized = hasInitialized.current && virtualizerStartIndex >= 0;
 
   return {
     components: {
