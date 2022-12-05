@@ -11,7 +11,6 @@ export const DataGridVirtualizedBody: React.FC<DataGridVirtualizedBodyProps> = p
   const state = useDataGridVirtualizedBody_unstable(props, null);
 
   useDataGridVirtualizedBodyStyles_unstable(state);
-  console.log('RENDERING: ', state);
   return renderDataGridVirtualizedBody_unstable(state);
 };
 
