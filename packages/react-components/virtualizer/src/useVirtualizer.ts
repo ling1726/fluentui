@@ -13,7 +13,7 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
     children,
     sizeOfChild,
     bufferItems = Math.round(virtualizerLength / 4.0),
-    bufferSize = Math.floor(bufferItems / 4.0) * itemSize,
+    bufferSize = Math.floor(bufferItems / 2.0) * itemSize,
     scrollViewRef,
     isReversed = false,
     isHorizontal = false,
