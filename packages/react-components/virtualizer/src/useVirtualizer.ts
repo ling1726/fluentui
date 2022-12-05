@@ -22,7 +22,7 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
   } = props;
 
   // Safe access array version of children
-  const childArray = useMemo(() => (Array.isArray(children) ? children : [children]), [children]);
+  const childArray = React.Children.toArray(children);
 
   // Tracks the initial item to start virtualizer at, -1 implies first render cycle
   const [virtualizerStartIndex, setVirtualizerStartIndex] = useState<number>(-1);
@@ -40,7 +40,7 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
   this helps us skip re-calculations unless children/size changes */
   const childProgressiveSizes = useRef<number[]>(new Array<number>(sizeOfChild ? childArray.length : 0));
 
-  const populateSizeArrays = React.useCallback(() => {
+  const populateSizeArrays = () => {
     if (!sizeOfChild) {
       // Static sizes, never mind!
       return;
@@ -63,7 +63,7 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
         childProgressiveSizes.current[index] = childProgressiveSizes.current[index - 1] + childSizes.current[index];
       }
     });
-  }, [childArray, sizeOfChild]);
+  };
 
   if (
     sizeOfChild &&
@@ -333,7 +333,7 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
     const endIndex = Math.max(virtualizerStartIndex + virtualizerLength, childArray.length);
 
     let didUpdate = false;
-    for (let i = virtualizerStartIndex; i < endIndex; i++) {
+    for (let i = Math.max(virtualizerStartIndex, 0); i < endIndex; i++) {
       const newSize = sizeOfChild(childArray[i], i);
       if (newSize !== childSizes.current[i]) {
         childSizes.current[i] = sizeOfChild(childArray[i], i);
