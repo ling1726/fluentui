@@ -1,6 +1,6 @@
 import { useIntersectionObserver } from './useIntersectionObserver';
 import type { ReactNode } from 'react';
-import { useMemo, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import * as React from 'react';
 
 import type { VirtualizerProps, VirtualizerState } from './Virtualizer.types';
