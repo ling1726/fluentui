@@ -397,7 +397,7 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
     beforeBufferHeight: isFullyInitialized ? calculateBefore() : 0,
     afterBufferHeight: isFullyInitialized ? calculateAfter() : 0,
     totalVirtualizerHeight: isFullyInitialized ? calculateTotalSize() : virtualizerLength * itemSize,
-    virtualizerStartIndex: isFullyInitialized ? virtualizerStartIndex : 0,
+    virtualizerStartIndex,
     isHorizontal,
     bufferSize,
     isReversed,
