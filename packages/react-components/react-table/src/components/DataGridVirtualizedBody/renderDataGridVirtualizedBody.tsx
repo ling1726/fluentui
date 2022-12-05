@@ -11,7 +11,7 @@ export const renderDataGridVirtualizedBody_unstable = (state: DataGridVirtualize
   const { slots, slotProps } = getSlots<DataGridBodySlots>(state);
   return (
     <slots.root {...slotProps.root}>
-      <Virtualizer virtualizerLength={100} itemSize={state.itemSize}>
+      <Virtualizer virtualizerLength={70} bufferSize={900} itemSize={state.itemSize}>
         {slotProps.root.children}
       </Virtualizer>
     </slots.root>
