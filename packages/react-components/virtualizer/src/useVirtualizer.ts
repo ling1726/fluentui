@@ -362,6 +362,8 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
   // Ensure we have run through and updated the whole size list array at least once.
   initializeSizeArray();
 
+  const isFullyInitialized = hasInitialized.current && virtualizerStartIndex > 0;
+
   return {
     components: {
       before: 'div',
@@ -392,10 +394,10 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
         role: 'none',
       },
     }),
-    beforeBufferHeight: hasInitialized.current ? calculateBefore() : 0,
-    afterBufferHeight: hasInitialized.current ? calculateAfter() : 0,
-    totalVirtualizerHeight: hasInitialized.current ? calculateTotalSize() : virtualizerLength * itemSize,
-    virtualizerStartIndex: hasInitialized.current ? virtualizerStartIndex : 0,
+    beforeBufferHeight: isFullyInitialized ? calculateBefore() : 0,
+    afterBufferHeight: isFullyInitialized ? calculateAfter() : 0,
+    totalVirtualizerHeight: isFullyInitialized ? calculateTotalSize() : virtualizerLength * itemSize,
+    virtualizerStartIndex: isFullyInitialized ? virtualizerStartIndex : 0,
     isHorizontal,
     bufferSize,
     isReversed,
