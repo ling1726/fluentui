@@ -200,7 +200,6 @@ export const Virtualized = () => {
             virtualizerLength={120}
             bufferSize={1000}
             itemSize={44}
-            sizeOfChild={() => 44}
           >
             {rows.map(({ item }, index) => (
               <TableRow key={item.file.label}>
