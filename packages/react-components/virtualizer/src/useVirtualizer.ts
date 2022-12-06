@@ -46,11 +46,11 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
       return;
     }
 
-    if (childArray.length > childSizes.current.length) {
+    if (childArray.length !== childSizes.current.length) {
       childSizes.current = new Array<number>(childArray.length);
     }
 
-    if (childArray.length > childProgressiveSizes.current.length) {
+    if (childArray.length !== childProgressiveSizes.current.length) {
       childProgressiveSizes.current = new Array<number>(childArray.length);
     }
 
