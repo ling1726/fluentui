@@ -92,7 +92,7 @@ const items: Item[] = [
   },
 ];
 
-const repeatCount = 1000;
+const repeatCount = 1500;
 const generateContent = (): Item[] => {
   const contentList: Item[] = [];
   for (let i = 0; i < repeatCount; i++) {
@@ -192,7 +192,16 @@ export const Virtualized = () => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          <Virtualizer virtualizerLength={80} bufferSize={1000} itemSize={44}>
+          <Virtualizer
+            beforeContainer={{ as: 'tr' }}
+            afterContainer={{ as: 'tr' }}
+            before={{ as: 'td' }}
+            after={{ as: 'td' }}
+            virtualizerLength={120}
+            bufferSize={1000}
+            itemSize={44}
+            sizeOfChild={() => 44}
+          >
             {rows.map(({ item }, index) => (
               <TableRow key={item.file.label}>
                 <TableCell>

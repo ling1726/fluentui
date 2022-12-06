@@ -1,6 +1,5 @@
 import { useIntersectionObserver } from './useIntersectionObserver';
-import type { ReactNode } from 'react';
-import { useRef, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import * as React from 'react';
 
 import type { VirtualizerProps, VirtualizerState } from './Virtualizer.types';
@@ -21,8 +20,8 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
     onCalculateIndex,
   } = props;
 
-  // Safe access array version of children
-  const childArray = React.Children.toArray(children);
+  // Safe access and memoized array version of children
+  const childArray = useMemo(() => React.Children.toArray(children), [children]);
 
   // Tracks the initial item to start virtualizer at, -1 implies first render cycle
   const [virtualizerStartIndex, setVirtualizerStartIndex] = useState<number>(-1);
@@ -40,7 +39,7 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
   this helps us skip re-calculations unless children/size changes */
   const childProgressiveSizes = useRef<number[]>(new Array<number>(sizeOfChild ? childArray.length : 0));
 
-  const populateSizeArrays = () => {
+  const populateSizeArrays = useCallback(() => {
     if (!sizeOfChild) {
       // Static sizes, never mind!
       return;
@@ -63,7 +62,11 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
         childProgressiveSizes.current[index] = childProgressiveSizes.current[index - 1] + childSizes.current[index];
       }
     });
-  };
+  }, [sizeOfChild, childArray]);
+
+  useEffect(() => {
+    populateSizeArrays();
+  }, [children, populateSizeArrays]);
 
   if (
     sizeOfChild &&
@@ -195,7 +198,7 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
     const indexValue = childProgressiveSizes.current[midpoint];
     const afterIndexValue = childProgressiveSizes.current[iAfter];
     const beforeIndexValue = childProgressiveSizes.current[iBefore];
-    if (indexValue === scrollPos || (scrollPos <= afterIndexValue && scrollPos >= beforeIndexValue)) {
+    if (scrollPos <= afterIndexValue && scrollPos >= beforeIndexValue) {
       /* We've found our index - if we are exactly matching before/after index that's ok,
       better to reduce checks if it's right on the boundary. */
       return midpoint;
@@ -209,9 +212,7 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
   };
 
   const getIndexFromSizeArray = (scrollPos: number): number => {
-    /* TODO: We should use some kind of logN calc, cut array in half and measure etc.
-     * Just simple array iteration for now to ensure rest of design works in tandem.
-     */
+    /* Quick searches our progressive height array */
     if (
       scrollPos === 0 ||
       childProgressiveSizes.current.length === 0 ||
@@ -331,9 +332,10 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
     // We should always call our size function on index change (only for the items that will be rendered)
     // This ensures we request the latest data for incoming items in case sizing has changed.
     const endIndex = Math.max(virtualizerStartIndex + virtualizerLength, childArray.length);
+    const startIndex = Math.max(virtualizerStartIndex, 0);
 
     let didUpdate = false;
-    for (let i = Math.max(virtualizerStartIndex, 0); i < endIndex; i++) {
+    for (let i = startIndex; i < endIndex; i++) {
       const newSize = sizeOfChild(childArray[i], i);
       if (newSize !== childSizes.current[i]) {
         childSizes.current[i] = sizeOfChild(childArray[i], i);
@@ -343,7 +345,7 @@ export function useVirtualizer_unstable(props: React.PropsWithChildren<Virtualiz
 
     if (didUpdate) {
       // Update our progressive size array
-      for (let i = virtualizerStartIndex; i < childArray.length; i++) {
+      for (let i = startIndex; i < childArray.length; i++) {
         const prevSize = i > 0 ? childProgressiveSizes.current[i - 1] : 0;
         childProgressiveSizes.current[i] = prevSize + childSizes.current[i];
       }

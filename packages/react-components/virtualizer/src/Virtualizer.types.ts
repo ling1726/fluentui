@@ -2,10 +2,10 @@ import type { ReactNode, MutableRefObject } from 'react';
 import type { ComponentProps, ComponentState, Slot } from '@fluentui/react-utilities';
 
 export type VirtualizerSlots = {
-  before?: Slot<'div'>;
-  beforeContainer?: Slot<'div'>;
-  after?: Slot<'div'>;
-  afterContainer?: Slot<'div'>;
+  before?: Slot<'div', 'td'>;
+  beforeContainer?: Slot<'div', 'tr'>;
+  after?: Slot<'div', 'td'>;
+  afterContainer?: Slot<'div', 'tr'>;
 };
 
 export type VirtualizerState = ComponentState<VirtualizerSlots> & {
