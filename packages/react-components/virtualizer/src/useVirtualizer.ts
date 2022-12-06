@@ -254,7 +254,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
       return virtualizerStartIndex * itemSize;
     }
 
-    if (virtualizerStartIndex === 0) {
+    if (virtualizerStartIndex <= 0) {
       return 0;
     }
 
