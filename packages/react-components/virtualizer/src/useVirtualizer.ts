@@ -1,12 +1,12 @@
 import { useIntersectionObserver } from './useIntersectionObserver';
-import type { ReactNode } from 'react';
+import type { ReactNode, PropsWithChildren } from 'react';
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import * as React from 'react';
 
 import type { VirtualizerProps, VirtualizerState } from './Virtualizer.types';
 import { resolveShorthand } from '@fluentui/react-utilities';
 
-export function useVirtualizer_unstable(props: React.PropsWithChildren<VirtualizerProps>): VirtualizerState {
+export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProps>): VirtualizerState {
   const {
     itemSize,
     virtualizerLength,
