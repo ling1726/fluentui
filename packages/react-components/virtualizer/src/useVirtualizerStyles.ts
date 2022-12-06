@@ -12,21 +12,25 @@ export const virtualizerClassNames: SlotClassNames<VirtualizerSlots> = {
 
 const useStyles = makeStyles({
   beforeHorizontal: {
+    display: 'block',
     position: 'relative',
     minHeight: '100%',
     pointerEvents: 'none',
   },
   afterHorizontal: {
+    display: 'block',
     position: 'relative',
     minHeight: '100%',
     pointerEvents: 'none',
   },
   beforeVertical: {
+    display: 'block',
     position: 'relative',
     minWidth: '100%',
     pointerEvents: 'none',
   },
   afterVertical: {
+    display: 'block',
     position: 'relative',
     minWidth: '100%',
     pointerEvents: 'none',
@@ -62,7 +66,7 @@ export const useVirtualizerStyles_unstable = (state: VirtualizerState): Virtuali
 
   if (state.before) {
     state.before.className = mergeClasses(
-      // virtualizerClassName,
+      virtualizerClassName,
       isHorizontal ? styles.beforeHorizontal : styles.beforeVertical,
       state.before.className,
     );
@@ -70,7 +74,7 @@ export const useVirtualizerStyles_unstable = (state: VirtualizerState): Virtuali
 
   if (state.after) {
     state.after.className = mergeClasses(
-      // virtualizerClassName,
+      virtualizerClassName,
       isHorizontal ? styles.afterHorizontal : styles.afterVertical,
       state.after.className,
     );
@@ -78,7 +82,7 @@ export const useVirtualizerStyles_unstable = (state: VirtualizerState): Virtuali
 
   if (state.beforeContainer) {
     state.beforeContainer.className = mergeClasses(
-      // virtualizerClassName,
+      virtualizerClassName,
       isHorizontal ? styles.beforeContainerHorizontal : styles.beforeContainerVertical,
       state.beforeContainer.className,
     );
@@ -86,7 +90,7 @@ export const useVirtualizerStyles_unstable = (state: VirtualizerState): Virtuali
 
   if (state.afterContainer) {
     state.afterContainer.className = mergeClasses(
-      // virtualizerClassName,
+      virtualizerClassName,
       isHorizontal ? styles.afterContainerHorizontal : styles.afterContainerVertical,
       state.afterContainer.className,
     );
