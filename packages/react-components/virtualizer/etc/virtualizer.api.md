@@ -7,6 +7,7 @@
 import type { ComponentProps } from '@fluentui/react-utilities';
 import type { ComponentState } from '@fluentui/react-utilities';
 import type { MutableRefObject } from 'react';
+import type { PropsWithChildren } from 'react';
 import * as React_2 from 'react';
 import type { ReactNode } from 'react';
 import type { Slot } from '@fluentui/react-utilities';
@@ -15,7 +16,7 @@ import type { Slot } from '@fluentui/react-utilities';
 export const renderVirtualizer_unstable: (state: VirtualizerState) => JSX.Element;
 
 // @public (undocumented)
-export function useVirtualizer_unstable(props: React_2.PropsWithChildren<VirtualizerProps>): VirtualizerState;
+export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProps>): VirtualizerState;
 
 // @public
 export const useVirtualizerStyles_unstable: (state: VirtualizerState) => VirtualizerState;
@@ -39,10 +40,10 @@ export type VirtualizerProps = ComponentProps<Partial<VirtualizerSlots>> & {
 
 // @public (undocumented)
 export type VirtualizerSlots = {
-    before?: Slot<'div'>;
-    beforeContainer?: Slot<'div'>;
-    after?: Slot<'div'>;
-    afterContainer?: Slot<'div'>;
+    before?: Slot<'div', 'td'>;
+    beforeContainer?: Slot<'div', 'tr'>;
+    after?: Slot<'div', 'td'>;
+    afterContainer?: Slot<'div', 'tr'>;
 };
 
 // @public (undocumented)
