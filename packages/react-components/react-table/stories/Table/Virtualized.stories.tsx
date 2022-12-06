@@ -19,12 +19,12 @@ import {
   useTableFeatures,
   ColumnDefinition,
   ColumnId,
-  UseTableSort,
   TableCellLayout,
   createColumn,
   Virtualizer,
   useTableSort,
 } from '@fluentui/react-components/unstable';
+import { makeStyles } from '@fluentui/react-components';
 
 type FileCell = {
   label: string;
@@ -116,6 +116,19 @@ const generateContent = (): Item[] => {
 
 const fullItemList: Item[] = generateContent();
 
+// Simple wrapper class to control scroll view height
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    overflowAnchor: 'none',
+    overflowY: 'auto',
+    width: '100%',
+    height: '100%',
+    maxHeight: '750px',
+  },
+});
+
 export const Virtualized = () => {
   const columns: ColumnDefinition<Item>[] = React.useMemo(
     () => [
@@ -165,41 +178,44 @@ export const Virtualized = () => {
   });
 
   const rows = sort(getRows());
+  const styles = useStyles();
 
   return (
-    <Table sortable>
-      <TableHeader>
-        <TableRow>
-          <TableHeaderCell {...headerSortProps('file')}>File</TableHeaderCell>
-          <TableHeaderCell {...headerSortProps('author')}>Author</TableHeaderCell>
-          <TableHeaderCell {...headerSortProps('lastUpdated')}>Last updated</TableHeaderCell>
-          <TableHeaderCell {...headerSortProps('lastUpdate')}>Last update</TableHeaderCell>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <Virtualizer virtualizerLength={100} itemSize={44}>
-          {rows.map(({ item }, index) => (
-            <TableRow key={item.file.label}>
-              <TableCell>
-                <TableCellLayout media={item.file.icon}>{item.file.label}</TableCellLayout>
-              </TableCell>
-              <TableCell>
-                <TableCellLayout
-                  media={
-                    <Avatar name={item.author.label} badge={{ status: item.author.status as PresenceBadgeStatus }} />
-                  }
-                >
-                  {item.author.label}
-                </TableCellLayout>
-              </TableCell>
-              <TableCell>{item.lastUpdated.label}</TableCell>
-              <TableCell>
-                <TableCellLayout media={item.lastUpdate.icon}>{item.lastUpdate.label}</TableCellLayout>
-              </TableCell>
-            </TableRow>
-          ))}
-        </Virtualizer>
-      </TableBody>
-    </Table>
+    <div className={styles.container}>
+      <Table sortable>
+        <TableHeader>
+          <TableRow>
+            <TableHeaderCell {...headerSortProps('file')}>File</TableHeaderCell>
+            <TableHeaderCell {...headerSortProps('author')}>Author</TableHeaderCell>
+            <TableHeaderCell {...headerSortProps('lastUpdated')}>Last updated</TableHeaderCell>
+            <TableHeaderCell {...headerSortProps('lastUpdate')}>Last update</TableHeaderCell>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <Virtualizer virtualizerLength={80} bufferSize={1000} itemSize={44}>
+            {rows.map(({ item }, index) => (
+              <TableRow key={item.file.label}>
+                <TableCell>
+                  <TableCellLayout media={item.file.icon}>{item.file.label}</TableCellLayout>
+                </TableCell>
+                <TableCell>
+                  <TableCellLayout
+                    media={
+                      <Avatar name={item.author.label} badge={{ status: item.author.status as PresenceBadgeStatus }} />
+                    }
+                  >
+                    {item.author.label}
+                  </TableCellLayout>
+                </TableCell>
+                <TableCell>{item.lastUpdated.label}</TableCell>
+                <TableCell>
+                  <TableCellLayout media={item.lastUpdate.icon}>{item.lastUpdate.label}</TableCellLayout>
+                </TableCell>
+              </TableRow>
+            ))}
+          </Virtualizer>
+        </TableBody>
+      </Table>
+    </div>
   );
 };
