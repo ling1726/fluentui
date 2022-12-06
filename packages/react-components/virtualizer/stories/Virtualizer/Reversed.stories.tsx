@@ -25,7 +25,7 @@ export const Reversed = () => {
   const childList = React.useMemo(() => {
     const nodeList: React.ReactNode[] = [];
     for (let i = 0; i < childLength; i++) {
-      nodeList.push(<span className={styles.child}>{`Node-${i}`}</span>);
+      nodeList.push(<span key={`test-virtualizer-child-${i}`} className={styles.child}>{`Node-${i}`}</span>);
     }
     return nodeList;
   }, [styles.child]);
