@@ -1,6 +1,6 @@
 import * as React from 'react';
 import type { DataGridVirtualizedBodyState } from './DataGridVirtualizedBody.types';
-import { Virtualizer } from '@fluentui/virtualizer';
+import { Virtualizer } from '@fluentui/react-virtualizer';
 import { getSlots } from '@fluentui/react-utilities';
 import { DataGridBodySlots } from '../DataGridBody/DataGridBody.types';
 
