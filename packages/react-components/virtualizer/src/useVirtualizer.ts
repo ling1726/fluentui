@@ -5,6 +5,7 @@ import * as React from 'react';
 
 import type { VirtualizerProps, VirtualizerState } from './Virtualizer.types';
 import { resolveShorthand } from '@fluentui/react-utilities';
+import { flushSync } from 'react-dom';
 
 export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProps>): VirtualizerState {
   const {
@@ -71,7 +72,11 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
 
   useEffect(() => {
     // We could inject a different start index here
-    setVirtualizerStartIndex(0);
+    if (virtualizerStartIndex < 0) {
+      onUpdateIndex?.(0, virtualizerStartIndex);
+      setVirtualizerStartIndex(0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (
@@ -178,10 +183,13 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
       if (virtualizerStartIndex !== newStartIndex) {
         // Set new index, trigger render!
         onUpdateIndex?.(newStartIndex, virtualizerStartIndex);
-        setVirtualizerStartIndex(newStartIndex);
+        flushSync(() => {
+          // We flush sync this as we require an immediate state update.
+          setVirtualizerStartIndex(newStartIndex);
+        });
         /*
           We need to ensure our dynamic size array
-          calculations are always up to date prior to render.
+          calculations are always up to date when index changes.
         */
         updateCurrentItemSizes();
       }
