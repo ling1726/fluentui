@@ -69,6 +69,11 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
     populateSizeArrays();
   }, [children, populateSizeArrays]);
 
+  useEffect(() => {
+    // We could inject a different start index here
+    setVirtualizerStartIndex(0);
+  }, []);
+
   if (
     sizeOfChild &&
     (childArray.length !== childSizes.current.length || childArray.length !== childProgressiveSizes.current.length)
@@ -366,7 +371,6 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   initializeSizeArray();
 
   const isFullyInitialized = hasInitialized.current && virtualizerStartIndex >= 0;
-
   return {
     components: {
       before: 'div',

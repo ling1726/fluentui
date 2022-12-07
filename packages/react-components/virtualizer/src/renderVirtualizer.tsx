@@ -10,38 +10,28 @@ export const renderVirtualizer_unstable = (state: VirtualizerState) => {
   const afterHeightPx = afterBufferHeight + 'px';
   const beforeBufferHeightPx = beforeBufferHeight + bufferSize + 'px';
   const afterBufferHeightPx = afterBufferHeight + bufferSize + 'px';
-  let topPos = 0;
-  let bottomPos = bufferSize;
-
-  if (isReversed) {
-    [topPos, bottomPos] = [bottomPos, topPos];
-  }
-
-  const topPosPx = topPos + 'px';
-  const bottomPosPx = bottomPos + 'px';
+  const bufferPx = bufferSize + 'px';
 
   const beforeBuffer = {
     // Column
-    ...(!isReversed && !isHorizontal && { top: topPosPx }),
+    ...(!isReversed && !isHorizontal && { marginBottom: `-${bufferPx}` }),
     // Column-Reverse
-    ...(isReversed && !isHorizontal && { bottom: topPosPx }),
-    // Row-Reverse
-    ...(isReversed && isHorizontal && { left: `-${topPosPx}` }),
+    ...(isReversed && !isHorizontal && { marginTop: `-${bufferPx}` }),
     // Row
-    ...(!isReversed && isHorizontal && { right: topPosPx }),
+    ...(!isReversed && isHorizontal && { marginLeft: `-${bufferPx}` }),
+    // Row-Reverse
+    ...(isReversed && isHorizontal && { marginRight: `-${bufferPx}` }),
   };
 
   const afterBuffer = {
-    // Column-Reverse
-    ...(isReversed && !isHorizontal && { top: bottomPosPx }),
     // Column
-    // Negative margin top is 'safer' than relative positioning for browser calcs
-    // Should we use this method for others? This is the only problematic one, but maybe.
-    ...(!isReversed && !isHorizontal && { marginTop: `-${bottomPosPx}` }),
+    ...(!isReversed && !isHorizontal && { marginTop: `-${bufferPx}` }),
+    // Column-Reverse
+    ...(isReversed && !isHorizontal && { marginBottom: `-${bufferPx}` }),
     // Row
-    ...(!isReversed && isHorizontal && { left: `-${bottomPosPx}` }),
+    ...(!isReversed && isHorizontal && { marginLeft: `-${bufferPx}` }),
     // Row-Reverse
-    ...(isReversed && isHorizontal && { right: bottomPosPx }),
+    ...(isReversed && isHorizontal && { marginRight: `-${bufferPx}` }),
   };
 
   const beforeStyle = {
