@@ -376,5 +376,5 @@ export {
   useVirtualizerStyles_unstable,
   useVirtualizer_unstable,
   renderVirtualizer_unstable,
-} from '@fluentui/virtualizer';
-export type { VirtualizerProps, VirtualizerState, VirtualizerSlots } from '@fluentui/virtualizer';
+} from '@fluentui/react-virtualizer';
+export type { VirtualizerProps, VirtualizerState, VirtualizerSlots } from '@fluentui/react-virtualizer';

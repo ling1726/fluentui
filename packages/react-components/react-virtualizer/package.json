@@ -1,5 +1,5 @@
 {
-  "name": "@fluentui/virtualizer",
+  "name": "@fluentui/react-virtualizer",
   "version": "9.0.0-alpha.0",
   "description": "Virtualizer for tables/list",
   "main": "lib-commonjs/index.js",

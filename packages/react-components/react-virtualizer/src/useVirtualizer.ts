@@ -6,7 +6,6 @@ import * as React from 'react';
 import type { VirtualizerProps, VirtualizerState } from './Virtualizer.types';
 import { resolveShorthand } from '@fluentui/react-utilities';
 import { flushSync } from 'react-dom';
-import { useFluent_unstable as useFluent } from '@fluentui/react-shared-contexts';
 
 export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProps>): VirtualizerState {
   const {

@@ -178,7 +178,7 @@ import { renderTableHeaderCell_unstable } from '@fluentui/react-table';
 import { renderTableRow_unstable } from '@fluentui/react-table';
 import { renderTableSelectionCell_unstable } from '@fluentui/react-table';
 import { renderToolbar_unstable } from '@fluentui/react-toolbar';
-import { renderVirtualizer_unstable } from '@fluentui/virtualizer';
+import { renderVirtualizer_unstable } from '@fluentui/react-virtualizer';
 import { RowId } from '@fluentui/react-table';
 import { RowState } from '@fluentui/react-table';
 import { Select } from '@fluentui/react-select';
@@ -348,12 +348,12 @@ import { useTableStyles_unstable } from '@fluentui/react-table';
 import { useToolbar_unstable } from '@fluentui/react-toolbar';
 import { useToolbarDividerStyles_unstable } from '@fluentui/react-toolbar';
 import { useToolbarStyles_unstable } from '@fluentui/react-toolbar';
-import { useVirtualizer_unstable } from '@fluentui/virtualizer';
-import { useVirtualizerStyles_unstable } from '@fluentui/virtualizer';
-import { Virtualizer } from '@fluentui/virtualizer';
-import { VirtualizerProps } from '@fluentui/virtualizer';
-import { VirtualizerSlots } from '@fluentui/virtualizer';
-import { VirtualizerState } from '@fluentui/virtualizer';
+import { useVirtualizer_unstable } from '@fluentui/react-virtualizer';
+import { useVirtualizerStyles_unstable } from '@fluentui/react-virtualizer';
+import { Virtualizer } from '@fluentui/react-virtualizer';
+import { VirtualizerProps } from '@fluentui/react-virtualizer';
+import { VirtualizerSlots } from '@fluentui/react-virtualizer';
+import { VirtualizerState } from '@fluentui/react-virtualizer';
 
 export { Alert }
 
