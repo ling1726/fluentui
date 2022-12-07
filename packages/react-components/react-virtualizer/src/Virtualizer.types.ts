@@ -90,7 +90,7 @@ export type VirtualizerProps = ComponentProps<Partial<VirtualizerSlots>> & {
    * @param target - the targeted child for this size request
    * @param index - the index of the requested size's child
    */
-  sizeOfChild?: (target: ReactNode, index: number) => number;
+  getItemSize?: (target: ReactNode, index: number) => number;
 
   /**
    * Notify users of index changes

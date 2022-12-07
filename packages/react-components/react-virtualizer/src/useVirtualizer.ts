@@ -12,7 +12,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
     itemSize,
     virtualizerLength,
     children,
-    sizeOfChild,
+    getItemSize,
     bufferItems = Math.round(virtualizerLength / 4.0),
     bufferSize = Math.floor(bufferItems / 2.0) * itemSize,
     scrollViewRef,
@@ -35,14 +35,14 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   const afterElementRef = useRef<Element | null>(null);
 
   // We need to store an array to track dynamic sizes, we can use this to incrementally update changes
-  const childSizes = useRef<number[]>(new Array<number>(sizeOfChild ? childArray.length : 0));
+  const childSizes = useRef<number[]>(new Array<number>(getItemSize ? childArray.length : 0));
 
   /* We keep track of the progressive sizing/placement down the list,
   this helps us skip re-calculations unless children/size changes */
-  const childProgressiveSizes = useRef<number[]>(new Array<number>(sizeOfChild ? childArray.length : 0));
+  const childProgressiveSizes = useRef<number[]>(new Array<number>(getItemSize ? childArray.length : 0));
 
   const populateSizeArrays = useCallback(() => {
-    if (!sizeOfChild) {
+    if (!getItemSize) {
       // Static sizes, never mind!
       return;
     }
@@ -56,7 +56,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
     }
 
     childArray.forEach((child, index) => {
-      childSizes.current[index] = sizeOfChild(child, index);
+      childSizes.current[index] = getItemSize(child, index);
 
       if (index === 0) {
         childProgressiveSizes.current[index] = childSizes.current[index];
@@ -64,7 +64,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
         childProgressiveSizes.current[index] = childProgressiveSizes.current[index - 1] + childSizes.current[index];
       }
     });
-  }, [sizeOfChild, childArray]);
+  }, [getItemSize, childArray]);
 
   useEffect(() => {
     populateSizeArrays();
@@ -80,7 +80,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   }, []);
 
   if (
-    sizeOfChild &&
+    getItemSize &&
     (childArray.length !== childSizes.current.length || childArray.length !== childProgressiveSizes.current.length)
   ) {
     // Dynamically sized items.
@@ -245,7 +245,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   };
 
   const getIndexFromScrollPosition = (scrollPos: number) => {
-    if (!sizeOfChild) {
+    if (!getItemSize) {
       return Math.round(scrollPos / itemSize);
     }
 
@@ -253,7 +253,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   };
 
   const calculateTotalSize = () => {
-    if (!sizeOfChild) {
+    if (!getItemSize) {
       return itemSize * childArray.length;
     }
 
@@ -262,7 +262,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   };
 
   const calculateBefore = () => {
-    if (!sizeOfChild) {
+    if (!getItemSize) {
       // The missing items from before virtualization starts height
       return virtualizerStartIndex * itemSize;
     }
@@ -280,7 +280,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
       return 0;
     }
     const lastItemIndex = Math.min(virtualizerStartIndex + virtualizerLength, childArray.length - 1);
-    if (!sizeOfChild) {
+    if (!getItemSize) {
       // The missing items from after virtualization ends height
       const remainingItems = childArray.length - lastItemIndex - 1;
 
@@ -339,7 +339,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   };
 
   const updateCurrentItemSizes = () => {
-    if (!sizeOfChild) {
+    if (!getItemSize) {
       // Static sizes, not required.
       return;
     }
@@ -350,9 +350,9 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
 
     let didUpdate = false;
     for (let i = startIndex; i < endIndex; i++) {
-      const newSize = sizeOfChild(childArray[i], i);
+      const newSize = getItemSize(childArray[i], i);
       if (newSize !== childSizes.current[i]) {
-        childSizes.current[i] = sizeOfChild(childArray[i], i);
+        childSizes.current[i] = getItemSize(childArray[i], i);
         didUpdate = true;
       }
     }

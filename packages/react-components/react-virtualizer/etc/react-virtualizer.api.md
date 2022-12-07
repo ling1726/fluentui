@@ -33,7 +33,7 @@ export type VirtualizerProps = ComponentProps<Partial<VirtualizerSlots>> & {
     scrollViewRef?: MutableRefObject<HTMLElement | null>;
     horizontal?: boolean;
     reversed?: boolean;
-    sizeOfChild?: (target: ReactNode, index: number) => number;
+    getItemSize?: (target: ReactNode, index: number) => number;
     onUpdateIndex?: (index: number, prevIndex: number) => void;
     onCalculateIndex?: (newIndex: number) => number;
 };
