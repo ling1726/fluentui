@@ -31,8 +31,8 @@ export type VirtualizerProps = ComponentProps<Partial<VirtualizerSlots>> & {
     bufferItems?: number;
     bufferSize?: number;
     scrollViewRef?: MutableRefObject<HTMLElement | null>;
-    isHorizontal?: boolean;
-    isReversed?: boolean;
+    horizontal?: boolean;
+    reversed?: boolean;
     sizeOfChild?: (target: ReactNode, index: number) => number;
     onUpdateIndex?: (index: number, prevIndex: number) => void;
     onCalculateIndex?: (newIndex: number) => number;
@@ -40,10 +40,10 @@ export type VirtualizerProps = ComponentProps<Partial<VirtualizerSlots>> & {
 
 // @public (undocumented)
 export type VirtualizerSlots = {
-    before?: Slot<'div', 'td'>;
-    beforeContainer?: Slot<'div', 'tr'>;
-    after?: Slot<'div', 'td'>;
-    afterContainer?: Slot<'div', 'tr'>;
+    before: Slot<'div', 'td'>;
+    beforeContainer: Slot<'div', 'tr'>;
+    after: Slot<'div', 'td'>;
+    afterContainer: Slot<'div', 'tr'>;
 };
 
 // @public (undocumented)
@@ -53,8 +53,8 @@ export type VirtualizerState = ComponentState<VirtualizerSlots> & {
     afterBufferHeight: number;
     beforeBufferHeight: number;
     totalVirtualizerHeight: number;
-    isHorizontal: boolean;
-    isReversed?: boolean;
+    horizontal: boolean;
+    reversed?: boolean;
     bufferSize: number;
 };
 

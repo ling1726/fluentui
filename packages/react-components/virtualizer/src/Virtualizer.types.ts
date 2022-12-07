@@ -2,10 +2,10 @@ import type { ReactNode, MutableRefObject } from 'react';
 import type { ComponentProps, ComponentState, Slot } from '@fluentui/react-utilities';
 
 export type VirtualizerSlots = {
-  before?: Slot<'div', 'td'>;
-  beforeContainer?: Slot<'div', 'tr'>;
-  after?: Slot<'div', 'td'>;
-  afterContainer?: Slot<'div', 'tr'>;
+  before: NonNullable<Slot<'div', 'td'>>;
+  beforeContainer: NonNullable<Slot<'div', 'tr'>>;
+  after: NonNullable<Slot<'div', 'td'>>;
+  afterContainer: NonNullable<Slot<'div', 'tr'>>;
 };
 
 export type VirtualizerState = ComponentState<VirtualizerSlots> & {
@@ -26,17 +26,17 @@ export type VirtualizerState = ComponentState<VirtualizerSlots> & {
    */
   beforeBufferHeight: number;
   /**
-   * The total current height of the scrollBiew/child content.
+   * The total current height of the scrollView/child content.
    */
   totalVirtualizerHeight: number;
   /**
    * The scroll direction (vertical vs horizontal) - defaults to Vertical if not provided
    */
-  isHorizontal: boolean;
+  horizontal: boolean;
   /**
    * Tells the virtualizer to measure in the reverse direction (for column-reverse order etc.)
    */
-  isReversed?: boolean;
+  reversed?: boolean;
   /**
    * Tells the virtualizer how much
    */
@@ -78,12 +78,12 @@ export type VirtualizerProps = ComponentProps<Partial<VirtualizerSlots>> & {
   /**
    * The scroll direction (vertical vs horizontal)
    */
-  isHorizontal?: boolean;
+  horizontal?: boolean;
 
   /**
    * Tells the virtualizer to measure in the reverse direction (for column-reverse order etc.)
    */
-  isReversed?: boolean;
+  reversed?: boolean;
 
   /**
    * Callback for acquiring size of individual items

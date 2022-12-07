@@ -33,7 +33,7 @@ export const RTL = () => {
 
   return (
     <div className={styles.container}>
-      <Virtualizer isReversed isHorizontal virtualizerLength={100} itemSize={100}>
+      <Virtualizer reversed horizontal virtualizerLength={100} itemSize={100}>
         {childList}
       </Virtualizer>
     </div>

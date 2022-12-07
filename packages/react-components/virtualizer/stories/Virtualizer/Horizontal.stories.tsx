@@ -32,7 +32,7 @@ export const Horizontal = () => {
 
   return (
     <div className={styles.container}>
-      <Virtualizer isHorizontal virtualizerLength={100} itemSize={100}>
+      <Virtualizer horizontal virtualizerLength={100} itemSize={100}>
         {childList}
       </Virtualizer>
     </div>

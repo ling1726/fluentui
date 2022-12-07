@@ -32,7 +32,7 @@ export const Reversed = () => {
 
   return (
     <div className={styles.container}>
-      <Virtualizer isReversed virtualizerLength={100} itemSize={100}>
+      <Virtualizer reversed virtualizerLength={100} itemSize={100}>
         {childList}
       </Virtualizer>
     </div>

@@ -6,6 +6,7 @@ import * as React from 'react';
 import type { VirtualizerProps, VirtualizerState } from './Virtualizer.types';
 import { resolveShorthand } from '@fluentui/react-utilities';
 import { flushSync } from 'react-dom';
+import { useFluent_unstable as useFluent } from '@fluentui/react-shared-contexts';
 
 export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProps>): VirtualizerState {
   const {
@@ -16,8 +17,8 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
     bufferItems = Math.round(virtualizerLength / 4.0),
     bufferSize = Math.floor(bufferItems / 2.0) * itemSize,
     scrollViewRef,
-    isReversed = false,
-    isHorizontal = false,
+    horizontal = false,
+    reversed = false,
     onUpdateIndex,
     onCalculateIndex,
   } = props;
@@ -90,7 +91,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   }
 
   // Observe intersections of virtualized components
-  const [setIOList, _setIOInit, _observer] = useIntersectionObserver(
+  const { setObserverList } = useIntersectionObserver(
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
       /* Sanity check - do we even need virtualization? */
       if (virtualizerLength > childArray.length) {
@@ -124,9 +125,9 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
       if (latestEntry.target === afterElementRef.current) {
         // We need to inverse the buffer count
         bufferCount = virtualizerLength - bufferItems;
-        measurementPos = isReversed ? calculateAfter() : calculateTotalSize() - calculateAfter();
-        if (!isHorizontal) {
-          if (isReversed) {
+        measurementPos = reversed ? calculateAfter() : calculateTotalSize() - calculateAfter();
+        if (!horizontal) {
+          if (reversed) {
             // Scrolling 'up' and hit the after element below
             measurementPos -= Math.abs(latestEntry.boundingClientRect.bottom);
           } else if (latestEntry.boundingClientRect.top < 0) {
@@ -134,7 +135,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
             measurementPos -= latestEntry.boundingClientRect.top;
           }
         } else {
-          if (isReversed) {
+          if (reversed) {
             // Scrolling 'left' and hit the after element
             measurementPos -= Math.abs(latestEntry.boundingClientRect.right);
           } else if (latestEntry.boundingClientRect.left < 0) {
@@ -143,16 +144,16 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
           }
         }
       } else if (latestEntry.target === beforeElementRef.current) {
-        measurementPos = isReversed ? calculateTotalSize() - calculateBefore() : calculateBefore();
-        if (!isHorizontal) {
-          if (!isReversed) {
+        measurementPos = reversed ? calculateTotalSize() - calculateBefore() : calculateBefore();
+        if (!horizontal) {
+          if (!reversed) {
             measurementPos -= Math.abs(latestEntry.boundingClientRect.bottom);
           } else if (latestEntry.boundingClientRect.top < 0) {
             // Scrolling 'down' in reverse order and hit the before element above top: 0
             measurementPos -= latestEntry.boundingClientRect.top;
           }
         } else {
-          if (!isReversed) {
+          if (!reversed) {
             measurementPos -= Math.abs(latestEntry.boundingClientRect.right);
           } else if (latestEntry.boundingClientRect.left < 0) {
             // Scrolling 'left' and hit before element
@@ -161,7 +162,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
         }
       }
 
-      if (isReversed) {
+      if (reversed) {
         // We're reversed, up is down, left is right, invert the scroll measure.
         measurementPos = Math.max(calculateTotalSize() - Math.abs(measurementPos), 0);
       }
@@ -318,7 +319,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
     }
 
     // Ensure we update array if before element changed
-    setIOList(newList);
+    setObserverList(newList);
   };
 
   const setAfterRef = (element: HTMLDivElement) => {
@@ -335,7 +336,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
     newList.push(afterElementRef.current);
 
     // Ensure we update array if after element changed
-    setIOList(newList);
+    setObserverList(newList);
   };
 
   const updateCurrentItemSizes = () => {
@@ -379,6 +380,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   initializeSizeArray();
 
   const isFullyInitialized = hasInitialized.current && virtualizerStartIndex >= 0;
+
   return {
     components: {
       before: 'div',
@@ -387,24 +389,28 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
       afterContainer: 'div',
     },
     virtualizedChildren: generateRows(),
-    before: resolveShorthand(props.before ?? { as: 'div' }, {
+    before: resolveShorthand(props.before, {
+      required: true,
       defaultProps: {
         ref: setBeforeRef,
         role: 'none',
       },
     }),
-    after: resolveShorthand(props.after ?? { as: 'div' }, {
+    after: resolveShorthand(props.after, {
+      required: true,
       defaultProps: {
         ref: setAfterRef,
         role: 'none',
       },
     }),
-    beforeContainer: resolveShorthand(props.beforeContainer ?? { as: 'div' }, {
+    beforeContainer: resolveShorthand(props.beforeContainer, {
+      required: true,
       defaultProps: {
         role: 'none',
       },
     }),
-    afterContainer: resolveShorthand(props.afterContainer ?? { as: 'div' }, {
+    afterContainer: resolveShorthand(props.afterContainer, {
+      required: true,
       defaultProps: {
         role: 'none',
       },
@@ -413,8 +419,8 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
     afterBufferHeight: isFullyInitialized ? calculateAfter() : 0,
     totalVirtualizerHeight: isFullyInitialized ? calculateTotalSize() : virtualizerLength * itemSize,
     virtualizerStartIndex,
-    isHorizontal,
+    horizontal,
     bufferSize,
-    isReversed,
+    reversed,
   };
 }

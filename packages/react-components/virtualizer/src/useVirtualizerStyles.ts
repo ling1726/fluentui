@@ -2,58 +2,27 @@ import { makeStyles, mergeClasses } from '@griffel/react';
 import { VirtualizerSlots, VirtualizerState } from './Virtualizer.types';
 import type { SlotClassNames } from '@fluentui/react-utilities';
 
-export const virtualizerClassName = 'fui-Virtualizer';
+const virtualizerClassName = 'fui-Virtualizer';
 export const virtualizerClassNames: SlotClassNames<VirtualizerSlots> = {
-  before: 'fui-Bookend-Before',
-  beforeContainer: 'fui-Bookend-BeforeContainer',
-  after: 'fui-Bookend-After',
-  afterContainer: 'fui-Bookend-AfterContainer',
+  before: `${virtualizerClassName}__before`,
+  beforeContainer: `${virtualizerClassName}__beforeContainer`,
+  after: `${virtualizerClassName}__after`,
+  afterContainer: `${virtualizerClassName}__afterContainer`,
 };
 
 const useStyles = makeStyles({
-  beforeHorizontal: {
+  base: {
     display: 'block',
+    pointerEvents: 'none',
+  },
+  relative: {
     position: 'relative',
+  },
+  horizontal: {
     minHeight: '100%',
-    pointerEvents: 'none',
   },
-  afterHorizontal: {
-    display: 'block',
-    position: 'relative',
-    minHeight: '100%',
-    pointerEvents: 'none',
-  },
-  beforeVertical: {
-    display: 'block',
-    position: 'relative',
+  vertical: {
     minWidth: '100%',
-    pointerEvents: 'none',
-  },
-  afterVertical: {
-    display: 'block',
-    position: 'relative',
-    minWidth: '100%',
-    pointerEvents: 'none',
-  },
-  beforeContainerHorizontal: {
-    display: 'block',
-    minHeight: '100%',
-    pointerEvents: 'none',
-  },
-  afterContainerHorizontal: {
-    display: 'block',
-    minHeight: '100%',
-    pointerEvents: 'none',
-  },
-  beforeContainerVertical: {
-    display: 'block',
-    minWidth: '100%',
-    pointerEvents: 'none',
-  },
-  afterContainerVertical: {
-    display: 'block',
-    minWidth: '100%',
-    pointerEvents: 'none',
   },
 });
 
@@ -62,39 +31,91 @@ const useStyles = makeStyles({
  */
 export const useVirtualizerStyles_unstable = (state: VirtualizerState): VirtualizerState => {
   const styles = useStyles();
-  const { isHorizontal } = state;
+  const { reversed, horizontal, beforeBufferHeight, afterBufferHeight, bufferSize } = state;
 
-  if (state.before) {
-    state.before.className = mergeClasses(
-      virtualizerClassName,
-      isHorizontal ? styles.beforeHorizontal : styles.beforeVertical,
-      state.before.className,
-    );
-  }
+  state.before.className = mergeClasses(
+    virtualizerClassNames.before,
+    styles.base,
+    styles.relative,
+    horizontal ? styles.horizontal : styles.vertical,
+    state.before.className,
+  );
 
-  if (state.after) {
-    state.after.className = mergeClasses(
-      virtualizerClassName,
-      isHorizontal ? styles.afterHorizontal : styles.afterVertical,
-      state.after.className,
-    );
-  }
+  state.after.className = mergeClasses(
+    virtualizerClassNames.after,
+    styles.base,
+    styles.relative,
+    horizontal ? styles.horizontal : styles.vertical,
+    state.after.className,
+  );
 
-  if (state.beforeContainer) {
-    state.beforeContainer.className = mergeClasses(
-      virtualizerClassName,
-      isHorizontal ? styles.beforeContainerHorizontal : styles.beforeContainerVertical,
-      state.beforeContainer.className,
-    );
-  }
+  state.beforeContainer.className = mergeClasses(
+    virtualizerClassNames.beforeContainer,
+    styles.base,
+    horizontal ? styles.horizontal : styles.vertical,
+    state.beforeContainer.className,
+  );
 
-  if (state.afterContainer) {
-    state.afterContainer.className = mergeClasses(
-      virtualizerClassName,
-      isHorizontal ? styles.afterContainerHorizontal : styles.afterContainerVertical,
-      state.afterContainer.className,
-    );
-  }
+  state.afterContainer.className = mergeClasses(
+    virtualizerClassNames.afterContainer,
+    styles.base,
+    horizontal ? styles.horizontal : styles.vertical,
+    state.afterContainer.className,
+  );
+
+  const beforeHeightPx = beforeBufferHeight + 'px';
+  const afterHeightPx = afterBufferHeight + 'px';
+  const beforeBufferHeightPx = beforeBufferHeight + bufferSize + 'px';
+  const afterBufferHeightPx = afterBufferHeight + bufferSize + 'px';
+  const bufferPx = bufferSize + 'px';
+
+  const beforeBuffer = {
+    // Column
+    ...(!reversed && !horizontal && { marginBottom: `-${bufferPx}` }),
+    // Column-Reverse
+    ...(reversed && !horizontal && { marginTop: `-${bufferPx}` }),
+    // Row
+    ...(!reversed && horizontal && { marginLeft: `-${bufferPx}` }),
+    // Row-Reverse
+    ...(reversed && horizontal && { marginRight: `-${bufferPx}` }),
+  };
+
+  const afterBuffer = {
+    // Column
+    ...(!reversed && !horizontal && { marginTop: `-${bufferPx}` }),
+    // Column-Reverse
+    ...(reversed && !horizontal && { marginBottom: `-${bufferPx}` }),
+    // Row
+    ...(!reversed && horizontal && { marginLeft: `-${bufferPx}` }),
+    // Row-Reverse
+    ...(reversed && horizontal && { marginRight: `-${bufferPx}` }),
+  };
+
+  state.before.style = {
+    height: horizontal ? '100%' : beforeBufferHeightPx,
+    width: horizontal ? beforeBufferHeightPx : '100%',
+    ...beforeBuffer,
+    ...state.before.style,
+  };
+
+  state.beforeContainer.style = {
+    height: horizontal ? 'auto' : beforeHeightPx,
+    width: horizontal ? beforeHeightPx : 'auto',
+    ...state.beforeContainer.style,
+  };
+
+  state.after.style = {
+    height: horizontal ? '100%' : afterBufferHeightPx,
+    width: horizontal ? afterBufferHeightPx : '100%',
+    ...afterBuffer,
+    ...state.after.style,
+  };
+
+  state.afterContainer.style = {
+    height: horizontal ? 'auto' : afterHeightPx,
+    width: horizontal ? afterHeightPx : 'auto',
+    ...state.afterContainer.style,
+  };
 
   return state;
 };
