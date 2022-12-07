@@ -35,7 +35,9 @@ export const renderVirtualizer_unstable = (state: VirtualizerState) => {
     // Column-Reverse
     ...(isReversed && !isHorizontal && { top: bottomPosPx }),
     // Column
-    ...(!isReversed && !isHorizontal && { bottom: bottomPosPx }),
+    // Negative margin top is 'safer' than relative positioning for browser calcs
+    // Should we use this method for others? This is the only problematic one, but maybe.
+    ...(!isReversed && !isHorizontal && { marginTop: `-${bottomPosPx}` }),
     // Row
     ...(!isReversed && isHorizontal && { left: `-${bottomPosPx}` }),
     // Row-Reverse
