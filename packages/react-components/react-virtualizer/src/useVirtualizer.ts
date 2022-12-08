@@ -71,7 +71,6 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   }, [children, populateSizeArrays]);
 
   useEffect(() => {
-    // We could inject a different start index here
     if (virtualizerStartIndex < 0) {
       onUpdateIndex?.(0, virtualizerStartIndex);
       setVirtualizerStartIndex(0);

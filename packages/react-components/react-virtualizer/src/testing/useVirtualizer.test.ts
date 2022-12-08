@@ -28,7 +28,7 @@ describe('useVirtualizer', () => {
 
     // Initial render shows only first 100 items
     expect(result.current.virtualizedChildren.length).toBe(virtualizerLength);
-    // First render state is -1.
-    expect(result.current.virtualizerStartIndex).toBe(-1);
+    // The start index should be 0 once mounted
+    expect(result.current.virtualizerStartIndex).toBe(0);
   });
 });
