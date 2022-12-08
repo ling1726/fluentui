@@ -70,10 +70,15 @@ export type VirtualizerProps = ComponentProps<Partial<VirtualizerSlots>> & {
   bufferSize?: number;
 
   /**
-   * This should be passed if you have a scrollView that is offset
-   * so that the intersection observer correctly fires instead of running on root body.
+   * This is not intended to be used in the majority of scenarios.
+   *
+   * The Intersection observer bookends are capable of relative math to dictate start/end pos.
+   * We have access to the bounding and client box of the 'before' and 'after' divs,
+   * which know their local start position even if offset.
+   *
+   * We this for Intersection Observer root specific issues if needed.
    */
-  scrollViewRef?: MutableRefObject<HTMLElement | null>;
+  intersectionObserverRoot?: MutableRefObject<HTMLElement | null>;
 
   /**
    * The scroll direction (vertical vs horizontal)

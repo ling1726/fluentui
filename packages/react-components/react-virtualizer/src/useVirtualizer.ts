@@ -15,7 +15,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
     getItemSize,
     bufferItems = Math.round(virtualizerLength / 4.0),
     bufferSize = Math.floor(bufferItems / 2.0) * itemSize,
-    scrollViewRef,
+    intersectionObserverRoot,
     horizontal = false,
     reversed = false,
     onUpdateIndex,
@@ -194,7 +194,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
       }
     },
     {
-      root: scrollViewRef ? scrollViewRef?.current : null,
+      root: intersectionObserverRoot ? intersectionObserverRoot?.current : null,
       rootMargin: '0px',
       threshold: 0,
     },
