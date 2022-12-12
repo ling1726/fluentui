@@ -7,7 +7,6 @@
 import type { ComponentProps } from '@fluentui/react-utilities';
 import type { ComponentState } from '@fluentui/react-utilities';
 import type { MutableRefObject } from 'react';
-import type { PropsWithChildren } from 'react';
 import * as React_2 from 'react';
 import type { ReactNode } from 'react';
 import type { Slot } from '@fluentui/react-utilities';
@@ -16,7 +15,7 @@ import type { Slot } from '@fluentui/react-utilities';
 export const renderVirtualizer_unstable: (state: VirtualizerState) => JSX.Element;
 
 // @public (undocumented)
-export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProps>): VirtualizerState;
+export function useVirtualizer_unstable(props: VirtualizerProps): VirtualizerState;
 
 // @public
 export const useVirtualizerStyles_unstable: (state: VirtualizerState) => VirtualizerState;
@@ -26,14 +25,16 @@ export const Virtualizer: React_2.FC<VirtualizerProps>;
 
 // @public (undocumented)
 export type VirtualizerProps = ComponentProps<Partial<VirtualizerSlots>> & {
+    children: VirtualizerChildRenderFunction;
     itemSize: number;
+    numItems: number;
     virtualizerLength: number;
     bufferItems?: number;
     bufferSize?: number;
     intersectionObserverRoot?: MutableRefObject<HTMLElement | null>;
     horizontal?: boolean;
     reversed?: boolean;
-    getItemSize?: (target: ReactNode, index: number) => number;
+    getItemSize?: (index: number) => number;
     onUpdateIndex?: (index: number, prevIndex: number) => void;
     onCalculateIndex?: (newIndex: number) => number;
 };

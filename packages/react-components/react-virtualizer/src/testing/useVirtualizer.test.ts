@@ -20,9 +20,10 @@ describe('useVirtualizer', () => {
 
     const { result } = renderHook(() =>
       useVirtualizer_unstable({
+        numItems: divArr.length,
         virtualizerLength,
         itemSize: 100, // 100 pixels
-        children: divArr,
+        children: index => divArr[index],
       }),
     );
 
