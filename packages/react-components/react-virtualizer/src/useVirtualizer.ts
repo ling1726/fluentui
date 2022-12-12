@@ -1,6 +1,6 @@
 import { useIntersectionObserver } from './useIntersectionObserver';
 import type { ReactNode } from 'react';
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import type { VirtualizerProps, VirtualizerState } from './Virtualizer.types';
 import { resolveShorthand } from '@fluentui/react-utilities';
@@ -64,13 +64,13 @@ export function useVirtualizer_unstable(props: VirtualizerProps): VirtualizerSta
   };
 
   useEffect(() => {
+    // Only fire on mount - initializes the bookend placeholders size.
     if (virtualizerStartIndex < 0) {
       onUpdateIndex?.(0, virtualizerStartIndex);
       updateChildRows(0);
       updateCurrentItemSizes(0);
       setVirtualizerStartIndex(0);
     }
-    // Only fire on mount - initializes the bookend placeholders size.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
