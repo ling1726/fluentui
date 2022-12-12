@@ -345,7 +345,7 @@ export function useVirtualizer_unstable(props: VirtualizerProps): VirtualizerSta
     }
     // We should always call our size function on index change (only for the items that will be rendered)
     // This ensures we request the latest data for incoming items in case sizing has changed.
-    const endIndex = Math.max(newIndex + virtualizerLength, numItems);
+    const endIndex = Math.min(newIndex + virtualizerLength, numItems);
     const startIndex = Math.max(newIndex, 0);
 
     let didUpdate = false;
