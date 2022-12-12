@@ -1,17 +1,17 @@
 import { useIntersectionObserver } from './useIntersectionObserver';
-import type { ReactNode, PropsWithChildren } from 'react';
-import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
-import * as React from 'react';
+import type { ReactNode } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 
 import type { VirtualizerProps, VirtualizerState } from './Virtualizer.types';
 import { resolveShorthand } from '@fluentui/react-utilities';
 import { flushSync } from 'react-dom';
 
-export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProps>): VirtualizerState {
+export function useVirtualizer_unstable(props: VirtualizerProps): VirtualizerState {
   const {
     itemSize,
+    numItems,
     virtualizerLength,
-    children,
+    children: renderChild,
     getItemSize,
     bufferItems = Math.round(virtualizerLength / 4.0),
     bufferSize = Math.floor(bufferItems / 2.0) * itemSize,
@@ -21,9 +21,6 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
     onUpdateIndex,
     onCalculateIndex,
   } = props;
-
-  // Safe access and memoized array version of children
-  const childArray = useMemo(() => React.Children.toArray(children), [children]);
 
   // Tracks the initial item to start virtualizer at, -1 implies first render cycle
   const [virtualizerStartIndex, setVirtualizerStartIndex] = useState<number>(-1);
@@ -35,56 +32,52 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   const afterElementRef = useRef<Element | null>(null);
 
   // We need to store an array to track dynamic sizes, we can use this to incrementally update changes
-  const childSizes = useRef<number[]>(new Array<number>(getItemSize ? childArray.length : 0));
+  const childSizes = useRef<number[]>(new Array<number>(getItemSize ? numItems : 0));
 
   /* We keep track of the progressive sizing/placement down the list,
   this helps us skip re-calculations unless children/size changes */
-  const childProgressiveSizes = useRef<number[]>(new Array<number>(getItemSize ? childArray.length : 0));
+  const childProgressiveSizes = useRef<number[]>(new Array<number>(getItemSize ? numItems : 0));
 
-  const populateSizeArrays = useCallback(() => {
+  const populateSizeArrays = () => {
     if (!getItemSize) {
       // Static sizes, never mind!
       return;
     }
 
-    if (childArray.length !== childSizes.current.length) {
-      childSizes.current = new Array<number>(childArray.length);
+    if (numItems !== childSizes.current.length) {
+      childSizes.current = new Array<number>(numItems);
     }
 
-    if (childArray.length !== childProgressiveSizes.current.length) {
-      childProgressiveSizes.current = new Array<number>(childArray.length);
+    if (numItems !== childProgressiveSizes.current.length) {
+      childProgressiveSizes.current = new Array<number>(numItems);
     }
 
-    childArray.forEach((child, index) => {
-      childSizes.current[index] = getItemSize(child, index);
+    for (let index = 0; index < numItems; index++) {
+      childSizes.current[index] = getItemSize(index);
 
       if (index === 0) {
         childProgressiveSizes.current[index] = childSizes.current[index];
       } else {
         childProgressiveSizes.current[index] = childProgressiveSizes.current[index - 1] + childSizes.current[index];
       }
-    });
-  }, [getItemSize, childArray]);
-
-  useEffect(() => {
-    populateSizeArrays();
-  }, [children, populateSizeArrays]);
+    }
+  };
 
   useEffect(() => {
     if (virtualizerStartIndex < 0) {
       onUpdateIndex?.(0, virtualizerStartIndex);
+      updateChildRows(0);
+      updateCurrentItemSizes(0);
       setVirtualizerStartIndex(0);
     }
+    // Only fire on mount - initializes the bookend placeholders size.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (
-    getItemSize &&
-    (childArray.length !== childSizes.current.length || childArray.length !== childProgressiveSizes.current.length)
-  ) {
-    // Dynamically sized items.
+  if (getItemSize && (numItems !== childSizes.current.length || numItems !== childProgressiveSizes.current.length)) {
+    /* Dynamically sized items.
     // Child length has changed, do a full recalculation.
-    // Otherwise, incremental updater will handle.
+    // Otherwise, incremental updater will handle. */
     populateSizeArrays();
   }
 
@@ -92,9 +85,11 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   const { setObserverList } = useIntersectionObserver(
     (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
       /* Sanity check - do we even need virtualization? */
-      if (virtualizerLength > childArray.length) {
+      if (virtualizerLength > numItems) {
         if (virtualizerStartIndex !== 0) {
           onUpdateIndex?.(0, virtualizerStartIndex);
+          updateChildRows(0);
+          updateCurrentItemSizes(0);
           setVirtualizerStartIndex(0);
         }
         // No-op
@@ -176,21 +171,21 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
       }
 
       // Safety limits
-      const maxIndex = Math.max(childArray.length - virtualizerLength, 0);
+      const maxIndex = Math.max(numItems - virtualizerLength, 0);
       const newStartIndex = Math.min(Math.max(bufferedIndex, 0), maxIndex);
 
       if (virtualizerStartIndex !== newStartIndex) {
-        // Set new index, trigger render!
-        onUpdateIndex?.(newStartIndex, virtualizerStartIndex);
+        // We flush sync this and perform an immediate state update
+        // due to virtualizerStartIndex invalidation.
         flushSync(() => {
-          // We flush sync this as we require an immediate state update.
+          onUpdateIndex?.(newStartIndex, virtualizerStartIndex);
+          // Update our local virtualized child array.
+          updateChildRows(newStartIndex);
+          //Request updates on any size changes.
+          updateCurrentItemSizes(newStartIndex);
+          // Update index - trigger render!
           setVirtualizerStartIndex(newStartIndex);
         });
-        /*
-          We need to ensure our dynamic size array
-          calculations are always up to date when index changes.
-        */
-        updateCurrentItemSizes();
       }
     },
     {
@@ -253,11 +248,11 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
 
   const calculateTotalSize = () => {
     if (!getItemSize) {
-      return itemSize * childArray.length;
+      return itemSize * numItems;
     }
 
     // Time for custom size calcs
-    return childProgressiveSizes.current[childArray.length - 1];
+    return childProgressiveSizes.current[numItems - 1];
   };
 
   const calculateBefore = () => {
@@ -275,32 +270,38 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   };
 
   const calculateAfter = () => {
-    if (childArray.length === 0) {
+    if (numItems === 0) {
       return 0;
     }
-    const lastItemIndex = Math.min(virtualizerStartIndex + virtualizerLength, childArray.length - 1);
+
+    const lastItemIndex = Math.min(virtualizerStartIndex + virtualizerLength, numItems - 1);
     if (!getItemSize) {
       // The missing items from after virtualization ends height
-      const remainingItems = childArray.length - lastItemIndex - 1;
-
+      const remainingItems = numItems - lastItemIndex - 1;
       return remainingItems * itemSize;
     }
 
     // Time for custom size calcs
-    return childProgressiveSizes.current[childArray.length - 1] - childProgressiveSizes.current[lastItemIndex];
+    return childProgressiveSizes.current[numItems - 1] - childProgressiveSizes.current[lastItemIndex];
   };
 
-  const generateRows = (): ReactNode[] => {
-    if (childArray.length === 0) {
+  const childArray = useRef<ReactNode[]>(new Array(virtualizerLength));
+  const updateChildRows = (newIndex: number) => {
+    if (numItems === 0) {
       /* Nothing to virtualize */
 
       return [];
     }
 
-    const actualIndex = Math.max(virtualizerStartIndex, 0);
-    const end = Math.min(actualIndex + virtualizerLength, childArray.length);
+    if (childArray.current.length !== numItems) {
+      childArray.current = new Array(virtualizerLength);
+    }
+    const actualIndex = Math.max(newIndex, 0);
+    const end = Math.min(actualIndex + virtualizerLength, numItems);
 
-    return childArray.slice(actualIndex, end);
+    for (let i = actualIndex; i < end; i++) {
+      childArray.current[i - actualIndex] = renderChild(i);
+    }
   };
 
   const setBeforeRef = (element: HTMLDivElement) => {
@@ -337,28 +338,28 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
     setObserverList(newList);
   };
 
-  const updateCurrentItemSizes = () => {
+  const updateCurrentItemSizes = (newIndex: number) => {
     if (!getItemSize) {
       // Static sizes, not required.
       return;
     }
     // We should always call our size function on index change (only for the items that will be rendered)
     // This ensures we request the latest data for incoming items in case sizing has changed.
-    const endIndex = Math.max(virtualizerStartIndex + virtualizerLength, childArray.length);
-    const startIndex = Math.max(virtualizerStartIndex, 0);
+    const endIndex = Math.max(newIndex + virtualizerLength, numItems);
+    const startIndex = Math.max(newIndex, 0);
 
     let didUpdate = false;
     for (let i = startIndex; i < endIndex; i++) {
-      const newSize = getItemSize(childArray[i], i);
+      const newSize = getItemSize(i);
       if (newSize !== childSizes.current[i]) {
-        childSizes.current[i] = getItemSize(childArray[i], i);
+        childSizes.current[i] = newSize;
         didUpdate = true;
       }
     }
 
     if (didUpdate) {
       // Update our progressive size array
-      for (let i = startIndex; i < childArray.length; i++) {
+      for (let i = startIndex; i < numItems; i++) {
         const prevSize = i > 0 ? childProgressiveSizes.current[i - 1] : 0;
         childProgressiveSizes.current[i] = prevSize + childSizes.current[i];
       }
@@ -378,7 +379,6 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
   initializeSizeArray();
 
   const isFullyInitialized = hasInitialized.current && virtualizerStartIndex >= 0;
-
   return {
     components: {
       before: 'div',
@@ -386,7 +386,7 @@ export function useVirtualizer_unstable(props: PropsWithChildren<VirtualizerProp
       beforeContainer: 'div',
       afterContainer: 'div',
     },
-    virtualizedChildren: generateRows(),
+    virtualizedChildren: childArray.current,
     before: resolveShorthand(props.before, {
       required: true,
       defaultProps: {

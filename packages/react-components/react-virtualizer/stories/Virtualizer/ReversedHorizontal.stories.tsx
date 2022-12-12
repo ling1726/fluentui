@@ -32,8 +32,10 @@ export const ReversedHorizontal = () => {
 
   return (
     <div className={styles.container}>
-      <Virtualizer reversed horizontal virtualizerLength={100} itemSize={100}>
-        {childList}
+      <Virtualizer numItems={childList.length} reversed horizontal virtualizerLength={100} itemSize={100}>
+        {index => {
+          return childList[index];
+        }}
       </Virtualizer>
     </div>
   );

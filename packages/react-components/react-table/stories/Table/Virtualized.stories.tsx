@@ -92,7 +92,7 @@ const items: Item[] = [
   },
 ];
 
-const repeatCount = 1500;
+const repeatCount = 2500;
 const generateContent = (): Item[] => {
   const contentList: Item[] = [];
   for (let i = 0; i < repeatCount; i++) {
@@ -179,7 +179,6 @@ export const Virtualized = () => {
 
   const rows = sort(getRows());
   const styles = useStyles();
-
   return (
     <div className={styles.container}>
       <Table sortable>
@@ -193,6 +192,7 @@ export const Virtualized = () => {
         </TableHeader>
         <TableBody>
           <Virtualizer
+            numItems={rows.length}
             beforeContainer={{ as: 'tr' }}
             afterContainer={{ as: 'tr' }}
             before={{ as: 'td' }}
@@ -201,26 +201,32 @@ export const Virtualized = () => {
             bufferSize={1000}
             itemSize={44}
           >
-            {rows.map(({ item }, index) => (
-              <TableRow key={item.file.label}>
-                <TableCell>
-                  <TableCellLayout media={item.file.icon}>{item.file.label}</TableCellLayout>
-                </TableCell>
-                <TableCell>
-                  <TableCellLayout
-                    media={
-                      <Avatar name={item.author.label} badge={{ status: item.author.status as PresenceBadgeStatus }} />
-                    }
-                  >
-                    {item.author.label}
-                  </TableCellLayout>
-                </TableCell>
-                <TableCell>{item.lastUpdated.label}</TableCell>
-                <TableCell>
-                  <TableCellLayout media={item.lastUpdate.icon}>{item.lastUpdate.label}</TableCellLayout>
-                </TableCell>
-              </TableRow>
-            ))}
+            {index => {
+              const item: Item = rows[index].item;
+              return (
+                <TableRow key={item.file.label}>
+                  <TableCell>
+                    <TableCellLayout media={item.file.icon}>{item.file.label}</TableCellLayout>
+                  </TableCell>
+                  <TableCell>
+                    <TableCellLayout
+                      media={
+                        <Avatar
+                          name={item.author.label}
+                          badge={{ status: item.author.status as PresenceBadgeStatus }}
+                        />
+                      }
+                    >
+                      {item.author.label}
+                    </TableCellLayout>
+                  </TableCell>
+                  <TableCell>{item.lastUpdated.label}</TableCell>
+                  <TableCell>
+                    <TableCellLayout media={item.lastUpdate.icon}>{item.lastUpdate.label}</TableCellLayout>
+                  </TableCell>
+                </TableRow>
+              );
+            }}
           </Virtualizer>
         </TableBody>
       </Table>

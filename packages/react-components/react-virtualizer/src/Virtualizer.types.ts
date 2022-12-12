@@ -8,6 +8,10 @@ export type VirtualizerSlots = {
   afterContainer: NonNullable<Slot<'div', 'tr'>>;
 };
 
+// Virtualizer render function to procedurally generate children elements.
+// Q: Should we be using generic typing and passing through object data or a simple index system?
+export type VirtualizerChildRenderFunction = (index: number) => ReactNode;
+
 export type VirtualizerState = ComponentState<VirtualizerSlots> & {
   /**
    * The current virtualized array of children to show in the DOM.
@@ -45,27 +49,43 @@ export type VirtualizerState = ComponentState<VirtualizerSlots> & {
 
 export type VirtualizerProps = ComponentProps<Partial<VirtualizerSlots>> & {
   /**
+   * Required!
+   * Render function for rows
+   */
+  children: VirtualizerChildRenderFunction;
+
+  /**
+   * Required!
    * Default row height to use if no custom callback provided.
    * You must provide a value, even if it is just an assumed average or minimum size.
    */
   itemSize: number;
 
   /**
+   * Required!
+   * The total number of items in the non-virtualized list.
+   */
+  numItems: number;
+
+  /**
    * Number of elements to render in the list after virtualization.
-   * This should cover at least the size of the viewport at least 250px (bufferSize)
+   * This needs to be enough items to cover the list's viewport
+   * as well as the buffer overhangs (bufferItems/bufferSize)
    */
   virtualizerLength: number;
 
   /**
    * Determines how many elements to render before the current index.
    * (Ensure it's enough items to move the buffer bookends outside viewport)
-   * This will default to 1/3rd of virtualizerLength which is recommended.
+   * This will default to 1/4th of virtualizerLength if no size is provided.
    */
   bufferItems?: number;
 
   /**
    * The length (in pixels) before the end/start where the virtualizer will be triggered.
-   * You can increase this if you wish for the virtualization to recalculate earlier
+   * You can increase this if you wish for the virtualization to recalculate earlier.
+   * You will need to ensure there is a large enough virtualizerLength to prevent
+   * both start & end bufferSize from entering the viewport at the same time.
    */
   bufferSize?: number;
 
@@ -92,10 +112,9 @@ export type VirtualizerProps = ComponentProps<Partial<VirtualizerSlots>> & {
 
   /**
    * Callback for acquiring size of individual items
-   * @param target - the targeted child for this size request
    * @param index - the index of the requested size's child
    */
-  getItemSize?: (target: ReactNode, index: number) => number;
+  getItemSize?: (index: number) => number;
 
   /**
    * Notify users of index changes

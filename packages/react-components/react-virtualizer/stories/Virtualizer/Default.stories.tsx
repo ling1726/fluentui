@@ -32,8 +32,10 @@ export const Default = () => {
 
   return (
     <div className={styles.container}>
-      <Virtualizer virtualizerLength={100} itemSize={100}>
-        {childList}
+      <Virtualizer numItems={childList.length} virtualizerLength={100} itemSize={100}>
+        {index => {
+          return childList[index];
+        }}
       </Virtualizer>
     </div>
   );

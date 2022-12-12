@@ -32,8 +32,10 @@ export const Horizontal = () => {
 
   return (
     <div className={styles.container}>
-      <Virtualizer horizontal virtualizerLength={100} itemSize={100}>
-        {childList}
+      <Virtualizer numItems={childList.length} horizontal virtualizerLength={100} itemSize={100}>
+        {index => {
+          return childList[index];
+        }}
       </Virtualizer>
     </div>
   );
