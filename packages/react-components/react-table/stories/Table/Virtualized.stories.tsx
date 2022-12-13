@@ -179,6 +179,32 @@ export const Virtualized = () => {
 
   const rows = sort(getRows());
   const styles = useStyles();
+
+  const rowFunc = React.useCallback(
+    (index: number) => {
+      const item: Item = rows[index].item;
+      return (
+        <TableRow key={item.file.label}>
+          <TableCell>
+            <TableCellLayout media={item.file.icon}>{item.file.label}</TableCellLayout>
+          </TableCell>
+          <TableCell>
+            <TableCellLayout
+              media={<Avatar name={item.author.label} badge={{ status: item.author.status as PresenceBadgeStatus }} />}
+            >
+              {item.author.label}
+            </TableCellLayout>
+          </TableCell>
+          <TableCell>{item.lastUpdated.label}</TableCell>
+          <TableCell>
+            <TableCellLayout media={item.lastUpdate.icon}>{item.lastUpdate.label}</TableCellLayout>
+          </TableCell>
+        </TableRow>
+      );
+    },
+    [rows],
+  );
+
   return (
     <div className={styles.container}>
       <Table sortable>
@@ -201,32 +227,7 @@ export const Virtualized = () => {
             bufferSize={1000}
             itemSize={44}
           >
-            {index => {
-              const item: Item = rows[index].item;
-              return (
-                <TableRow key={item.file.label}>
-                  <TableCell>
-                    <TableCellLayout media={item.file.icon}>{item.file.label}</TableCellLayout>
-                  </TableCell>
-                  <TableCell>
-                    <TableCellLayout
-                      media={
-                        <Avatar
-                          name={item.author.label}
-                          badge={{ status: item.author.status as PresenceBadgeStatus }}
-                        />
-                      }
-                    >
-                      {item.author.label}
-                    </TableCellLayout>
-                  </TableCell>
-                  <TableCell>{item.lastUpdated.label}</TableCell>
-                  <TableCell>
-                    <TableCellLayout media={item.lastUpdate.icon}>{item.lastUpdate.label}</TableCellLayout>
-                  </TableCell>
-                </TableRow>
-              );
-            }}
+            {rowFunc}
           </Virtualizer>
         </TableBody>
       </Table>
