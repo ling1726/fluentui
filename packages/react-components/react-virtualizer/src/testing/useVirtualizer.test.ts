@@ -20,15 +20,16 @@ describe('useVirtualizer', () => {
 
     const { result } = renderHook(() =>
       useVirtualizer_unstable({
+        numItems: divArr.length,
         virtualizerLength,
         itemSize: 100, // 100 pixels
-        children: divArr,
+        children: index => divArr[index],
       }),
     );
 
     // Initial render shows only first 100 items
     expect(result.current.virtualizedChildren.length).toBe(virtualizerLength);
-    // First render state
-    expect(result.current.virtualizerStartIndex).toBe(-1);
+    // The start index should be 0 once mounted
+    expect(result.current.virtualizerStartIndex).toBe(0);
   });
 });

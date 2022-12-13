@@ -1,4 +1,4 @@
-# @fluentui/virtualizer Spec
+# @fluentui/react-virtualizer Spec
 
 ## Background
 

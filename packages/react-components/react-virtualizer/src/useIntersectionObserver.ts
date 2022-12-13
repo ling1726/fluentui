@@ -13,14 +13,23 @@ const { useState, useRef } = React;
  * @returns An array containing a callback to update the list of Elements the observer should listen to, a callback to
  * update the init options of the IntersectionObserver and a ref to the IntersectionObserver instance itself.
  */
+
 export const useIntersectionObserver = (
   callback: IntersectionObserverCallback,
   options?: IntersectionObserverInit,
-): [
-  Dispatch<SetStateAction<Element[] | undefined>>,
-  Dispatch<SetStateAction<IntersectionObserverInit | undefined>>,
-  MutableRefObject<IntersectionObserver | undefined>,
-] => {
+): {
+  setObserverList: Dispatch<SetStateAction<Element[] | undefined>>;
+  setObserverInit: Dispatch<SetStateAction<IntersectionObserverInit | undefined>>;
+  observer: MutableRefObject<IntersectionObserver | undefined>;
+} => {
+  // export const useIntersectionObserver = (
+  //   callback: IntersectionObserverCallback,
+  //   options?: IntersectionObserverInit,
+  // ): [
+  //   Dispatch<SetStateAction<Element[] | undefined>>,
+  //   Dispatch<SetStateAction<IntersectionObserverInit | undefined>>,
+  //   MutableRefObject<IntersectionObserver | undefined>,
+  // ] => {
   const observer = useRef<IntersectionObserver>();
   const [observerList, setObserverList] = useState<Element[]>();
   const [observerInit, setObserverInit] = useState<IntersectionObserverInit | undefined>(options);
@@ -45,5 +54,5 @@ export const useIntersectionObserver = (
     };
   }, [observerList, observerInit, callback]);
 
-  return [setObserverList, setObserverInit, observer];
+  return { setObserverList, setObserverInit, observer };
 };

@@ -162,7 +162,7 @@ export const Virtualization = () => {
         </DataGridRow>
       </DataGridHeader>
       <DataGridVirtualizedBody
-        itemSize={50}
+        itemSize={44}
         height={400}
         style={{
           display: 'flex',

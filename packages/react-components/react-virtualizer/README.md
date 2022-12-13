@@ -1,4 +1,4 @@
-# @fluentui/virtualizer
+# @fluentui/react-virtualizer
 
 **Virtualizer components for [Fluent UI React](https://react.fluentui.dev/)**
 

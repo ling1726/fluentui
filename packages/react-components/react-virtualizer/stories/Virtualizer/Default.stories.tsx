@@ -25,15 +25,17 @@ export const Default = () => {
   const childList = React.useMemo(() => {
     const nodeList: React.ReactNode[] = [];
     for (let i = 0; i < childLength; i++) {
-      nodeList.push(<span className={styles.child}>{`Node-${i}`}</span>);
+      nodeList.push(<span key={`test-virtualizer-child-${i}`} className={styles.child}>{`Node-${i}`}</span>);
     }
     return nodeList;
   }, [styles.child]);
 
   return (
     <div className={styles.container}>
-      <Virtualizer virtualizerLength={100} itemSize={100}>
-        {childList}
+      <Virtualizer numItems={childList.length} virtualizerLength={100} itemSize={100}>
+        {index => {
+          return childList[index];
+        }}
       </Virtualizer>
     </div>
   );

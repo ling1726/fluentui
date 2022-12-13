@@ -5,7 +5,7 @@ import { makeStyles } from '@fluentui/react-components';
 const useStyles = makeStyles({
   container: {
     display: 'flex',
-    flexDirection: 'column-reverse',
+    flexDirection: 'row-reverse',
     overflowAnchor: 'none',
     overflowY: 'auto',
     width: '100%',
@@ -13,27 +13,29 @@ const useStyles = makeStyles({
     maxHeight: '750px',
   },
   child: {
-    height: '100px',
-    lineHeight: '100px',
-    width: '100%',
+    minWidth: '100px',
+    minHeight: '100px',
+    height: '100%',
   },
 });
 
-export const Reversed = () => {
+export const ReversedHorizontal = () => {
   const styles = useStyles();
   const childLength = 1000;
   const childList = React.useMemo(() => {
     const nodeList: React.ReactNode[] = [];
     for (let i = 0; i < childLength; i++) {
-      nodeList.push(<span className={styles.child}>{`Node-${i}`}</span>);
+      nodeList.push(<span key={`test-virtualizer-child-${i}`} className={styles.child}>{`Node-${i}`}</span>);
     }
     return nodeList;
   }, [styles.child]);
 
   return (
     <div className={styles.container}>
-      <Virtualizer isReversed virtualizerLength={100} itemSize={100}>
-        {childList}
+      <Virtualizer numItems={childList.length} reversed horizontal virtualizerLength={100} itemSize={100}>
+        {index => {
+          return childList[index];
+        }}
       </Virtualizer>
     </div>
   );

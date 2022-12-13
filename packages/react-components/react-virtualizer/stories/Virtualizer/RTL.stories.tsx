@@ -11,6 +11,7 @@ const useStyles = makeStyles({
     width: '100%',
     height: '100%',
     maxHeight: '750px',
+    direction: 'rtl',
   },
   child: {
     minWidth: '100px',
@@ -19,21 +20,23 @@ const useStyles = makeStyles({
   },
 });
 
-export const Horizontal = () => {
+export const RTL = () => {
   const styles = useStyles();
   const childLength = 1000;
   const childList = React.useMemo(() => {
     const nodeList: React.ReactNode[] = [];
     for (let i = 0; i < childLength; i++) {
-      nodeList.push(<span className={styles.child}>{`Node-${i}`}</span>);
+      nodeList.push(<span key={`test-virtualizer-child-${i}`} className={styles.child}>{`Node-${i}`}</span>);
     }
     return nodeList;
   }, [styles.child]);
 
   return (
     <div className={styles.container}>
-      <Virtualizer isHorizontal virtualizerLength={100} itemSize={100}>
-        {childList}
+      <Virtualizer numItems={childList.length} reversed horizontal virtualizerLength={100} itemSize={100}>
+        {index => {
+          return childList[index];
+        }}
       </Virtualizer>
     </div>
   );

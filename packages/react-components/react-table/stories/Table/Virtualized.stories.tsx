@@ -16,14 +16,15 @@ import {
   Table,
   TableHeader,
   TableHeaderCell,
-  useTable,
+  useTableFeatures,
   ColumnDefinition,
   ColumnId,
-  useSort,
   TableCellLayout,
   createColumn,
   Virtualizer,
+  useTableSort,
 } from '@fluentui/react-components/unstable';
+import { makeStyles } from '@fluentui/react-components';
 
 type FileCell = {
   label: string;
@@ -91,7 +92,7 @@ const items: Item[] = [
   },
 ];
 
-const repeatCount = 1000;
+const repeatCount = 2500;
 const generateContent = (): Item[] => {
   const contentList: Item[] = [];
   for (let i = 0; i < repeatCount; i++) {
@@ -114,6 +115,19 @@ const generateContent = (): Item[] => {
 };
 
 const fullItemList: Item[] = generateContent();
+
+// Simple wrapper class to control scroll view height
+const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    overflowAnchor: 'none',
+    overflowY: 'auto',
+    width: '100%',
+    height: '100%',
+    maxHeight: '750px',
+  },
+});
 
 export const Virtualized = () => {
   const columns: ColumnDefinition<Item>[] = React.useMemo(
@@ -148,12 +162,12 @@ export const Virtualized = () => {
   const {
     getRows,
     sort: { getSortDirection, toggleColumnSort, sort },
-  } = useTable(
+  } = useTableFeatures(
     {
       columns,
       items: fullItemList,
     },
-    [useSort({ defaultSortState: { sortColumn: 'file', sortDirection: 'ascending' } })],
+    [useTableSort({ defaultSortState: { sortColumn: 'file', sortDirection: 'ascending' } })],
   );
 
   const headerSortProps = (columnId: ColumnId) => ({
@@ -164,67 +178,59 @@ export const Virtualized = () => {
   });
 
   const rows = sort(getRows());
+  const styles = useStyles();
 
-  /* Use this for now to test vertical/horizontal/reversed basic layout */
-  // return (
-  //   <div
-  //     style={{
-  //       display: 'flex',
-  //       flexDirection: 'column',
-  //       overflowAnchor: 'none',
-  //       overflow: 'auto',
-  //       width: '500px',
-  //     }}
-  //   >
-  //     <Virtualizer isReversed flow={VirtualizerFlow.Vertical} virtualizerLength={100} itemSize={100}>
-  //       {fullItemList.map((item, index) => (
-  //         <div style={{ display: 'flex', minHeight: '100px', width: '100%' }}>{item.file.label}</div>
-  //       ))}
-  //     </Virtualizer>
-  //   </div>
-  // );
+  const rowFunc = React.useCallback(
+    (index: number) => {
+      const item: Item = rows[index].item;
+      return (
+        <TableRow key={item.file.label}>
+          <TableCell>
+            <TableCellLayout media={item.file.icon}>{item.file.label}</TableCellLayout>
+          </TableCell>
+          <TableCell>
+            <TableCellLayout
+              media={<Avatar name={item.author.label} badge={{ status: item.author.status as PresenceBadgeStatus }} />}
+            >
+              {item.author.label}
+            </TableCellLayout>
+          </TableCell>
+          <TableCell>{item.lastUpdated.label}</TableCell>
+          <TableCell>
+            <TableCellLayout media={item.lastUpdate.icon}>{item.lastUpdate.label}</TableCellLayout>
+          </TableCell>
+        </TableRow>
+      );
+    },
+    [rows],
+  );
 
   return (
-    <Table sortable>
-      <TableHeader>
-        <TableRow>
-          <TableHeaderCell {...headerSortProps('file')}>File</TableHeaderCell>
-          <TableHeaderCell {...headerSortProps('author')}>Author</TableHeaderCell>
-          <TableHeaderCell {...headerSortProps('lastUpdated')}>Last updated</TableHeaderCell>
-          <TableHeaderCell {...headerSortProps('lastUpdate')}>Last update</TableHeaderCell>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        <Virtualizer
-          virtualizerLength={100}
-          itemSize={44}
-          sizeOfChild={(node, index) => {
-            // An example of simple dynamic sizing
-            return index % 2 === 0 ? 88 : 44;
-          }}
-        >
-          {rows.map(({ item }, index) => (
-            <TableRow key={item.file.label} style={{ height: index % 2 === 0 ? '88px' : '44px' }}>
-              <TableCell>
-                <TableCellLayout media={item.file.icon}>{item.file.label}</TableCellLayout>
-              </TableCell>
-              <TableCell>
-                <TableCellLayout
-                  media={
-                    <Avatar name={item.author.label} badge={{ status: item.author.status as PresenceBadgeStatus }} />
-                  }
-                >
-                  {item.author.label}
-                </TableCellLayout>
-              </TableCell>
-              <TableCell>{item.lastUpdated.label}</TableCell>
-              <TableCell>
-                <TableCellLayout media={item.lastUpdate.icon}>{item.lastUpdate.label}</TableCellLayout>
-              </TableCell>
-            </TableRow>
-          ))}
-        </Virtualizer>
-      </TableBody>
-    </Table>
+    <div className={styles.container}>
+      <Table sortable>
+        <TableHeader>
+          <TableRow>
+            <TableHeaderCell {...headerSortProps('file')}>File</TableHeaderCell>
+            <TableHeaderCell {...headerSortProps('author')}>Author</TableHeaderCell>
+            <TableHeaderCell {...headerSortProps('lastUpdated')}>Last updated</TableHeaderCell>
+            <TableHeaderCell {...headerSortProps('lastUpdate')}>Last update</TableHeaderCell>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <Virtualizer
+            numItems={rows.length}
+            beforeContainer={{ as: 'tr' }}
+            afterContainer={{ as: 'tr' }}
+            before={{ as: 'td' }}
+            after={{ as: 'td' }}
+            virtualizerLength={120}
+            bufferSize={1000}
+            itemSize={44}
+          >
+            {rowFunc}
+          </Virtualizer>
+        </TableBody>
+      </Table>
+    </div>
   );
 };

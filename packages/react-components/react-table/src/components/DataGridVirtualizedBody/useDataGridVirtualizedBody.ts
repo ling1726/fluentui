@@ -29,7 +29,7 @@ export const useDataGridVirtualizedBody_unstable = (
         overflowAnchor: 'none',
         overflowY: 'auto',
         width: '100%',
-        height: '100%',
+        height: 'auto',
         ...baseState.root.style,
       },
     },
