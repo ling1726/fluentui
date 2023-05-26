@@ -42,12 +42,24 @@ const useStyles = makeStyles({
       },
       { selector: 'focus-within' },
     ),
+
     ...createCustomFocusIndicatorStyle(
       {
         ...shorthands.outline('2px', 'solid', tokens.colorStrokeFocus2),
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
       },
       { selector: 'focus' },
+    ),
+  },
+
+  rowFocusIndicator: {
+    ...createCustomFocusIndicatorStyle(
+      {
+        ...shorthands.outline('2px', 'solid', tokens.colorStrokeFocus2),
+        ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        zIndex: 1,
+      },
+      { selector: 'focus-within' },
     ),
   },
 
@@ -156,6 +168,7 @@ export const useTableRowStyles_unstable = (state: TableRowState): TableRowState 
     tableRowClassNames.root,
     styles.root,
     !state.isHeaderRow && styles.rootInteractive,
+    !state.isHeaderRow && styles.rowFocusIndicator,
     styles[state.size],
     state.noNativeElements ? layoutStyles.flex.root : layoutStyles.table.root,
     styles[state.appearance],

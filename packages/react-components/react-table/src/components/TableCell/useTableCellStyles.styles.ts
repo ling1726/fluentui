@@ -62,6 +62,7 @@ const useStyles = makeStyles({
       {
         ...shorthands.outline('2px', 'solid', tokens.colorStrokeFocus2),
         ...shorthands.borderRadius(tokens.borderRadiusMedium),
+        zIndex: 1,
       },
       { selector: 'focus' },
     ),

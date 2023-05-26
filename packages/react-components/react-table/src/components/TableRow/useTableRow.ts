@@ -23,11 +23,11 @@ export const useTableRow_unstable = (props: TableRowProps, ref: React.Ref<HTMLEl
   const isHeaderRow = useIsInTableHeader();
   const onFocus = () => {
     const firstCell = focusWithinRef.current?.querySelector(`.${tableCellClassNames.root}`) as HTMLElement | null;
-    if (!focusWithinRef.current || !firstCell) {
+    if (!focusWithinRef.current || !firstCell || isHeaderRow) {
       return;
     }
 
-    if (document.activeElement === firstCell) {
+    if (firstCell.contains(document.activeElement)) {
       focusWithinRef.current.style.outlineStyle = '';
       firstCell.style.outlineStyle = 'none';
     } else {
@@ -38,7 +38,7 @@ export const useTableRow_unstable = (props: TableRowProps, ref: React.Ref<HTMLEl
 
   const onBlur = (e: React.FocusEvent) => {
     const firstCell = focusWithinRef.current?.querySelector(`.${tableCellClassNames.root}`) as HTMLElement | null;
-    if (!focusWithinRef.current || !firstCell) {
+    if (!focusWithinRef.current || !firstCell || isHeaderRow) {
       return;
     }
 
